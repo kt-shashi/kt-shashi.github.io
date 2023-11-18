@@ -1,465 +1,409 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<title>Shashi</title>
-	<link rel="icon" type="image/png" href="images/male-technologist.png" hreflang="en-us">
-	<link href="https://fonts.googleapis.com/css?family=Share+Tech+Mono" rel="stylesheet">
-	<link rel="stylesheet" type="text/css" href="style.css">
-	
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shashi's Portfolio</title>
+
+    <!-- font awesome cdn link  -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+
+    <!-- custom css file link  -->
+    <link rel="stylesheet" href="style.css">
+
 </head>
-<body>
+
+<body background="images/bg.jpg" oncontextmenu="return false;">
+
+    <!-- header section starts  -->
+
+    <header>
+
+        <div class="user">
+            <img src="images/pic.jpg" alt="">
+            <h3 class="name">Shashi Kant</h3>
+            <p class="post"> Placement Coordinator @NIT JSR | Former Android Developer @Perform Digital </p>
+        </div>
+
+        <nav class="navbar">
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#experience">Career Overview</a></li>
+                <li><a href="#projects">Projects & Skills</a></li>
+                <li><a href="#coding">Coding Profiles</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+
+    </header>
+
+    <!-- header section ends -->
+
+    <div id="menu" class="fas fa-bars"></div>
+
+    <!-- home section starts  -->
+
+    <section class="home" id="home">
+        <h3>HI THERE!</h3>
+        <h1>I'm <span>Shashi</span></h1>
+        <p>A grad student who specializes in Data structures, Algorithms, DBMS, and OOP, with expertise in Android
+            Development.</p>
+        <div class="social-links">
+            <a href="https://github.com/kt-shashi" class="btn btn-github"><img src="images/github.svg" alt=""></a>
+            <a href="https://www.linkedin.com/in/kt-shashi/" class="btn btn-linkedin"><img src="images/linkedin.svg"
+                    alt=""></a>
+            <a href="mailto:shkt03@gmail.com" class="btn btn-gmail"><img src="images/gmail.svg" alt=""></a>
+            <a href="https://medium.com/@kt-shashi" class="btn btn-medium"><img src="images/medium.svg" alt=""></a>
+            <a href="https://twitter.com/shkt03" class="btn btn-dev"><img src="images/twitter.svg" alt=""></a>
+        </div>
+    </section>
 
 
-<div id = "site">
-	<div class="switch-wrapper"> 
-		</a>
-		<div class="sun"></div> 
-		<div class="toggle-wrapper">
-			<input type="checkbox" id="switch"  />
-			<label for="switch" id="switch1" >Toggle</label> 
-		</div>
-		<div class="moon"></div>
-	</div>
+    <!-- experience section  -->
 
-	<header class="intro">
-		<h1 class="intro_hello">
-			Hello!
-			<span  id="wave" class="emoji wave-hand animated "></span>
-		</h1>
-		<h2 class="intro_tagline">
-			I'm
-			<div class="myname">Shashi Kant</div>
-			<br><br><br>
-			<div class="mytext">
-				<div class="content">
-					<div class=" container">
-						<ul class="list">
-							<li class="item">Android Developer</li>
-							<li class="item">Java | Kotlin</li>
-							<li class="item">Firebase | GIT | GITHUB</li>
-						</ul>
-					</div><br>
-				</div>
-			</div>
-			<br>
-			<br>
-			<span>A personable, communicative android app developer who specializes in Data structures, Algorithms, DBMS and OOP languages.
-			<span id="emojiwavehand" class="emoji technologist"></span>
-		</h2>
-		<h3 class="intro_contact">
-			<span>Get in touch</span>
-			<span class="emoji pointer"></span>
-			<span id="emailme">
-				<a href="mailto:shkt03@gmail.com" target="_blank" class="highlight-link">shkt03@gmail.com</a>
-			</span>
-		</h3>
-	</header>
+    <section class="experience" id="experience">
 
-	<section class = "section background" >
-		<div class="section_title">Background</div>
-		<div class="section_content">
-			<p>
-					MCA at <a class = "http://www.nitjsr.ac.in/" href="http://www.nitjsr.ac.in/" target="http://www.nitjsr.ac.in/">
-					National Institute of Technology, Jamshedpur | CGPA - 8.79 </a> (2021-24)
-					<br>	
-					Expected Graduation Summer of 2024
-			</p>
-			<p>
-					BCA at <a class = "https://www.georgecollege.org/" href="https://www.georgecollege.org/" target="https://www.georgecollege.org/">
-					George College, Kolkata </a> (2018-21) | 92%
-			</p>
-		</div>
-	</section>
+        <h1 class="heading"><span>experience</span> </h1>
 
-		<section class="section skills" data-aos="slide-up">
-		<div class="section_title">skills</div>
-		<div class="section_content">
-			<div class="skillz">
-				<div class="skillz_category"> 
-					<div class="skillz_category_label">
-						Languages
-					</div>
-					<ul>
-						 <li class="skillz_category_item">JAVA</li>
-						 <li class="skillz_category_item">KOTLIN</li>
-						 <li class="skillz_category_item">C++</li> 
-						 <li class="skillz_category_item">C</li>
-						 <li class="skillz_category_item">PYTHON</li>
-						 <li class="skillz_category_item">HTML</li>
-						 <li class="skillz_category_item">XML</li>
-					</ul> 
-				</div>
+        <div class="box-container">
 
-				<div class="skillz_category"> 
-					<div class="skillz_category_label">
-						Tools
-					</div>
-					<ul>
-						<li class="skillz_category_item">Firebase</li>
-						<li class="skillz_category_item">CloudFirestore</li>
-						<li class="skillz_category_item">MYSQL</li>
-						<li class="skillz_category_item">GIT & GITHUB</li>
-					</ul>
-				</div>
-			</div>
-		</div>
-	</section>	
-	
-	<section class="section featured-projects"> 
-		<div class="section_title">Recent Projects</div> 
-			<div class="section_content"> 
-				<div class="project salzakshipment">
-					<figure class="project_pic"> 
-					</figure> 
-				</div><br>
-				<details>
-					<summary>BlogMob | The Blogging App</summary>
-					<div class="project">
-							<a href="https://github.com/kt-shashi/blog-mob" target="https://github.com/kt-shashi/blog-mob">  </a>
-					</div>
-					<div class = "featured-projects-content"> 
-						<p> BlogMob is a blogging app where users can post blogs and like the blogs they love. These blogs can contain texts as well as images. Users can also visit each others' profile. (Nov 2020) </p> 
-						<p>Features⚡️</p>
-						<p>
-							 <ul>
-							  <li>- Signup/Signin (Gmail & Other mails)</li>
-							<li>- Create/Update user profile</li>
-							<li>- Read others' blog in Blogfeed</li>
-							<li>- Write blogs</li>
-							<li>- Like blogs you love</li>
-							<li>- View other users' profile</li>
-							<li>- View your blogs</li>
-							<li>- Delete your post</li>
-							<li>- Pagination for infinite scrolling</li>
-							<li>- Logout</li>
-							</ul>
-						</p>
-						<a href="https://github.com/kt-shashi/blog-mob" target="https://github.com/kt-shashi/blog-mob">View project</a>
-						
-					</div>
-					<div class="project_used">
-							<span class="project_used_item">Android Studio</span>
-							<span class="project_used_item">Kotlin</span>
-							<span class="project_used_item">FirebaseAuth</span>
-							<span class="project_used_item">CloudFirestore</span>
-							<span class="project_used_item">FirebaseStorage</span>
-							<span class="project_used_item">Material-Design</span>	
-							<span class="project_used_item">XML</span>
-					</div> 
-				</details>
-				<details>
-					<summary>Wittyape</summary>
-					<div class="project">
-							<a href="https://github.com/kt-shashi/wittyape" target="https://github.com/kt-shashi/wittyape">  </a>
-					</div>
-					<div class = "featured-projects-content"> 
-						<p>FREE learning app for KIDS (Sep-Oct 2020) </p> 
-						<p>Features⚡️</p>
-						<p>
-							 <ul>
-							  <li>-Free learning resources</li>
-							  <li>-Master Mathematics and English in an interactive way</li>
-							  <li>-Adaptive learning to better understand the subject.</li>
-							  <li>-Fun Quizzes to practice what you learn.</li>
-							  <li>-Score more and practice hard to reach the top on the leaderboard.</li>
-							</ul>
-						</p>
-						<a href="https://github.com/kt-shashi/wittyape" target="https://github.com/kt-shashi/wittyape">View project</a>
-						
-					</div>
-					<div class="project_used">
-							<span class="project_used_item">Android Studio</span>
-							<span class="project_used_item">Java</span>
-							<span class="project_used_item">Firebase</span>
-							<span class="project_used_item">FirebaseAuth</span>
-							<span class="project_used_item">CloudFirestore</span>
-							<span class="project_used_item">FCM-Notification</span>
-							<span class="project_used_item">Material-Design</span>	
-							<span class="project_used_item">XML</span>
-					</div> 
-				</details>
-				<details>
-					<summary>CloudNotes</summary>
-					<div class="project">
-							<a href="https://github.com/kt-shashi/CloudNotes" target="https://github.com/kt-shashi/CloudNotes">  </a>
-					</div>
-					<div class = "featured-projects-content"> 
-						<p>Cloud based Note-taking App  (Sep 2020) </p> <a href="https://github.com/kt-shashi/CloudNotes" target="https://github.com/kt-shashi/CloudNotes">View project</a>
-						
-					</div>
-					<div class="project_used">
-							<span class="project_used_item">Android Studio</span>
-							<span class="project_used_item">Java</span>
-							<span class="project_used_item">FirebaseAuth</span>
-							<span class="project_used_item">CloudFirestore</span>
-							<span class="project_used_item">Material-Design</span>	
-							<span class="project_used_item">XML</span>
-					</div> 
-				</details>
-				<details>
-					<summary>Newsdozz</summary>
-					<div class="project">
-							<a href="https://github.com/kt-shashi/newsdozz" target="https://github.com/kt-shashi/newsdozz">  </a>
-					</div>
-					<div class = "featured-projects-content"> 
-						<p>Get your daily dose of NEWS here! (Nov 2020) </p> 
-						<p>Features⚡️</p>
-						<p>
-							 <ul>
-							  <li>-Free News articles</li>
-							  <li>-Breaking News in 4 lines</li>
-							  <li>-Multiple categories to choose from</li>
-							  <li>-One-click to read full article</li>
-							</ul>
-						</p>
-						<a href="https://github.com/kt-shashi/newsdozz" target="https://github.com/kt-shashi/newsdozz">View project</a>
-						
-					</div>
-					<div class="project_used">
-							<span class="project_used_item">Android Studio</span>
-							<span class="project_used_item">Kotlin</span>
-							<span class="project_used_item">Glide</span>
-							<span class="project_used_item">Volley</span>
-							<span class="project_used_item">JSON-API</span>
-							<span class="project_used_item">XML</span>
-					</div> 
-				</details>
-			</div>
-	</section>
+            <div class="box">
+                <i class="fas fa-suitcase"></i>
+                <span>2023-Present</span>
+                <h3>Placement Coordinator</h3>
+                <p>Training and Placement Cell at NIT Jamshedpur
 
-	<section class="section other-projects">
-		<div class="section_title">Other Projects</div>
-			<div class="section_content">
+                <ul>
+                    <li>Strengthened industry connections, enhancing student placement opportunities</li>
+                    <li>Organized impactful placement events, bridging academia and industry for successful student
+                        placements.</li>
+                </ul>
 
-				<details>
-					<summary>LoginTemplateApp</summary>
-					<div class="project">
-							<a href="https://github.com/kt-shashi/login-template" target="https://github.com/kt-shashi/login-template">  </a>
-					</div>
-					<div class = "featured-projects-content"> 
-						<p>A template android app that handles signup/signin of users. (Nov 2020) </p> 
-						<p>Features⚡️</p>
-						<p>
-							 <ul>
-							  <li>-Signup with Mail (Verification link sent to mail) & Gmail</li>
-							  <li>-Signin (Gmail & Other mails)</li>
-							  <li>-Create user profile (Profile Name & Image)</li>
-							  <li>-Update user profile</li>
-							  <li>-Logout</li>
-							</ul>
-						</p>
-						<a href="https://github.com/kt-shashi/login-template" target="https://github.com/kt-shashi/login-template">View project</a>
-					</div>
-					<div class="project_used">
-							<span class="project_used_item">Android Studio</span>
-							<span class="project_used_item">Kotlin</span>
-							<span class="project_used_item">Material Design</span>
-							<span class="project_used_item">Glide</span>
-							<span class="project_used_item">CircleImageView</span>
-							<span class="project_used_item">Dexter</span>
-							<span class="project_used_item">Firebase Authentication</span>
-							<span class="project_used_item">Cloud Firestore</span>
-							<span class="project_used_item">Firebase Storage</span>
-							<span class="project_used_item">XML</span>
-					</div> 
-				</details>
-				
-				<details>
-					<summary>QuoteTheVoice</summary>
-					<div class="project">
-							<a href="https://github.com/kt-shashi/quotethevoice" target="https://github.com/kt-shashi/quotethevoice">  </a>
-					</div>
-					<div class = "featured-projects-content"> 
-						<p>Freelance Project for QuoteTheVoice. (Nov 2020) </p> 
-						<p>Features⚡️</p>
-						<p>
-							 <ul>
-							  <li>-In-app youtube videos</li>
-							  <li>-Get notified every time a new video is out</li>
-							  <li>-Collection of all social media handles</li>
-							</ul>
-						</p>
-						<a href="https://github.com/kt-shashi/quotethevoice" target="https://github.com/kt-shashi/quotethevoice">View project</a>
-						
-					</div>
-					<div class="project_used">
-							<span class="project_used_item">Android Studio</span>
-							<span class="project_used_item">Java</span>
-							<span class="project_used_item">ImageSlideshow</span>
-							<span class="project_used_item">Glide</span>
-							<span class="project_used_item">Cloud Firestore</span>
-							<span class="project_used_item">Firebase Cloud Messaging</span>
-							<span class="project_used_item">XML</span>
-					</div> 
-				</details>
-				
-				<details>
-					<summary>EmployeeManagementApp</summary>
-					<div class="project">
-							<a href="https://github.com/kt-shashi/EmployeeManagementApp" target="https://github.com/kt-shashi/EmployeeManagementApp">  </a>
-					</div>
-					<div class = "featured-projects-content"> 
-						<p>A An Employee Management App that helps authorities to store details of their employees (ID, Name, Department, Salary) in Sqlite Database.  (Sep 2020) </p> <a href="https://github.com/shashi-kant10/EmployeeManagementApp" target="https://github.com/shashi-kant10/EmployeeManagementApp">View project</a>
-						
-					</div>
-					<div class="project_used">
-							<span class="project_used_item">Android Studio</span>
-							<span class="project_used_item">Java</span>
-							<span class="project_used_item">sqlite-database</span>
-							<span class="project_used_item">XML</span>
-					</div> 
-				</details>
-				
-				<details>
-					<summary>WeatherForecastApp</summary>
-					<div class="project">
-							<a href="https://github.com/kt-shashi/WeatherForecastApp" target="https://github.com/kt-shashi/WeatherForecastApp">  </a>
-					</div>
-					<div class = "featured-projects-content"> 
-						<p>The app fetches weather of any city from JSON api provided by Openweathermap. (Sep 2020) </p> <a href="https://github.com/kt-shashi/WeatherForecastApp" target="https://github.com/kt-shashi/WeatherForecastApp">View project</a>
-						
-					</div>
-					<div class="project_used">
-							<span class="project_used_item">Android Studio</span>
-							<span class="project_used_item">Java</span>
-							<span class="project_used_item">JSON</span>
-							<span class="project_used_item">XML</span>
-					</div> 
-				</details>
-				
-				<details>
-					<summary>Trivia Quiz App</summary>
-					<div class="project">
-							<a href="https://github.com/kt-shashi/Android/blob/master/Quiz-Shashi.apk" target="https://github.com/kt-shashi/Android/blob/master/Quiz-Shashi.apk">  </a>
-					</div>
-					<div class = "featured-projects-content"> 
-						<p>A Trivia quiz app that fetches quiz questions using JSON API. (May 2020) </p> <a href="https://github.com/kt-shashi/Android/blob/master/Quiz-Shashi.apk" target="https://github.com/kt-shashi/Android/blob/master/Quiz-Shashi.apk">Download</a>
-						
-					</div>
-					<div class="project_used">
-							<span class="project_used_item">Android Studio</span>
-							<span class="project_used_item">Java</span>
-							<span class="project_used_item">JSON</span>
-							<span class="project_used_item">XML</span>
-					</div> 
-				</details>
-				
-				<details>
-					<summary>CoinMan</summary>
-					<div class="project">
-							<a href="https://github.com/kt-shashi/Android/blob/master/Coinman-Shashi.apk" target="https://github.com/kt-shashi/Android/blob/master/Coinman-Shashi.apk">  </a>
-					</div>
-					<div class = "featured-projects-content"> 
-						<p>A 2D game using LibGDX framework. (April 2020) </p> <a href="https://github.com/kt-shashi/Android/blob/master/Coinman-Shashi.apk" target="https://github.com/kt-shashi/Android/blob/master/Coinman-Shashi.apk">Download</a>
-						
-					</div>
-					<div class="project_used">
-							<span class="project_used_item">Android Studio</span>
-							<span class="project_used_item">Java</span>
-							<span class="project_used_item">LibGDX</span>
-							<span class="project_used_item">XML</span>
-					</div> 
-				</details>
-				
-				<details>
-					<summary>Brain Trainer</summary>
-					<div class="project"> 
-						<p>A Brain trainer app that provides a platform to showcase your talent by solving multiple linear equations
-							in a time span of 30s and helps building analytical skills. (Feb 2020) </p> <a href="https://github.com/kt-shashi/Android/blob/master/BrainTrainer.apk" target="https://github.com/kt-shashi/Android/blob/master/BrainTrainer.apk">Download
-							</a>
-						<div class="project_used"> 
-							<span class="project_used_item">Android Studio</span> 
-							<span class="project_used_item">Java</span>
-							<span class="project_used_item">Xml</span>
-						</div> 
-					</div>
-				</details>
+                </p>
+            </div>
 
-				<details>
-					<summary>TicTacToe</summary>
-					<div class="project"> 
-						<p>A A basic 2 player Tic Tac Toe game. (Jan 2020) </p> <a href="https://github.com/kt-shashi/Android/blob/master/TicTacToe.apk" target="https://github.com/kt-shashi/Android/blob/master/TicTacToe.apk">Download
-							</a>
-						<div class="project_used"> 
-							<span class="project_used_item">Android Studio</span> 
-							<span class="project_used_item">Java</span>
-							<span class="project_used_item">Xml</span>
-						</div> 
-					</div>
-				</details>
+            <div class="box">
+                <i class="fas fa-suitcase"></i>
+                <span>Dec'20-Jan'21</span>
+                <h3>Android Developer</h3>
 
-				<details>
-					<summary>Ethical Hacking Project</summary>
-					<div class="project"> 
-						<p>XSS on lab website(Beginner to Advanced). (Jan 2019) </p> <a href="https://github.com/kt-shashi/CEH-Project" target="https://github.com/kt-shashi/CEH-Project">Download
-							</a>
-						<div class="project_used"> 
-							<span class="project_used_item">CEH</span> 
-							<span class="project_used_item">XSS</span>
-						</div> 
-					</div>
-				</details>
+                <p>
+                    Android Intern at Perform Digital Pvt Ltd.
+                </p>
 
-				<details>
-					<summary>RIP with InterVlan</summary>
-					<div class="project"> 
-						<p>Configure RIP with InterVlan in Cisco Packet Tracer. (October 2018) </p> <a href="https://github.com/kt-shashi/CCNA-Project-Networking" target="https://github.com/kt-shashi/CCNA-Project-Networking">Download
-							</a>
-						<div class="project_used"> 
-							<span class="project_used_item">CCNA</span> 
-							<span class="project_used_item">Cisco Packet Tracer</span>
-						</div> 
-					</div>
-				</details>
+                <p>
+                    Worked on Groupalike app
 
-		
-			</div>
-	</section>
+                <ul>
+                    <li>Worked on App localization</li>
+                    <li>Fixed Memory Leaks and Bugs</li>
+                    <li>Code optimized & Layout rendering speed optimization</li>
+                </ul>
 
-	<footer class="footer">
-	 	<div class="footer_copyright"> 
-	 		<div class="top"> 
-	 			<span>
-	 			
-				</span>
-			</div> 
-			<div class="bottom"> 
-				<span>
-					Shashi Kant
-				</span> 
-				<img class="emoji" src="images/rockon.png" alt="emoji"> 
-				
-			</div> 
-		</div> 
-		<div class="footer_links"> 
-			<a href="mailto:shkt03@gmail.com" target="shkt03@gmail.com"> 
-				Mail
-			</a>
-			<a href="https://www.linkedin.com/in/kt-shashi/" target="https://www.linkedin.com/in/kt-shashi/"> 
-				
-				LinkedIn
-			</a>
-			<a href="https://github.com/kt-shashi" target="https://github.com/kt-shashi"> 
-				
-				GitHub
-			</a>
-		
-			<a href="https://www.codechef.com/users/kt_shashi" target="https://www.codechef.com/users/kt_shashi"> 
-				
-				CodeChef 
-			</a> 
-			
+                </p>
 
-		</div>
- 	</footer>
-	<button id="top-button" style="display: inline-block;"> 
-		<img src="images/finger-up-emoji-clipart-21.png" alt=""> 
-	</button>
+                <p>
+                    [Java, Kotlin, LeakCanary, GTranslate, MVVM, XML]
+                </p>
+            </div>
 
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-<script type="text/javascript" src="main.js"></script>
+        </div>
+
+    </section>
+
+    <!-- education section  -->
+
+    <section class="education" id="education">
+
+        <h1 class="heading"><span>education</span> </h1>
+
+        <div class="box-container">
+
+            <div class="box">
+                <i class="fas fa-graduation-cap"></i>
+                <span>2021-2024</span>
+                <h3>MCA, NIT Jamshedpur</h3>
+                <p>Progressed in Android development, crafting the NewsDozz app. Dedicatedly learned and practiced data
+                    structures and algorithms. Currently serving as MCA Placement Coordinator</p>
+            </div>
+
+            <div class="box">
+                <i class="fas fa-graduation-cap"></i>
+                <span>2018-2021</span>
+                <h3>BCA, Geroge College</h3>
+                <p>Proficiently transitioned from web development to Android development, successfully creating the
+                    WittyApe app, also gained valuable experience through an Android developer internship</p>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- projects section starts  -->
+
+    <section class="projects" id="projects">
+
+        <h1 class="heading"><span>projects</span> </h1>
+
+        <div>
+            <p>WittyApe | Helping Kids Excel</p>
+            <a href="https://github.com/kt-shashi/wittyape"><img src="images/link.svg" alt="Link" class="link-svg"></a>
+
+        </div>
+
+        <div class="box-container">
+
+            <div class="box">
+                <img src="images/wittyape1.jpg" alt="">
+            </div>
+
+            <div class="box">
+                <img src="images/wittyape2.jpg" alt="">
+            </div>
+
+            <div class="box">
+                <img src="images/wittyape3.jpg" alt="">
+            </div>
+
+        </div>
+
+        <div>
+            <p>NewsDozz | Get your daily dose of NEWS</p>
+            <a href="https://github.com/kt-shashi/newsdozz"><img src="images/link.svg" alt="Link" class="link-svg"></a>
+
+        </div>
+
+        <div class="box-container">
+            <div class="box">
+                <img src="images/newsdozz1.jpg" alt="">
+            </div>
+
+            <div class="box">
+                <img src="images/newsdozz2.jpg" alt="">
+            </div>
+
+            <div class="box">
+                <img src="images/newsdozz3.jpg" alt="">
+            </div>
+
+        </div>
+
+        <div>
+            <p>Blogmob | The blogging app</p>
+            <a href="https://github.com/kt-shashi/blog-mob"><img src="images/link.svg" alt="Link" class="link-svg"></a>
+
+        </div>
+
+        <div class="box-container">
+            <div class="box">
+                <img src="images/blogmob1.jpg" alt="">
+            </div>
+
+            <div class="box">
+                <img src="images/blogmob2.jpg" alt="">
+            </div>
+
+            <div class="box">
+                <img src="images/blogmob3.jpg" alt="">
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Open Source -->
+
+    <section class="opensource" id="opensource">
+
+        <h1 class="heading"> <span>Open Source</span></h1>
+
+        <div class="row">
+
+            <div class="counter">
+
+                <div class="box">
+
+                    <span>UNIX</span>
+
+                    <ul>
+                        <li>UNIX Commands Project: Demonstrates essential UNIX commands and shell programming.</li>
+                        <li>Topics Covered: Calendar, directory operations, file operations, basic commands</li>
+                        <li>Includes Shell Scripting to automate tasks and enhance functionality.</li>
+                    </ul>
+
+                    <a href="https://github.com/kt-shashi/unix"><i>[Click Here]</i><img src="images/link.svg" alt="Link"
+                            class="link-svg"></a>
+
+                </div>
+
+                <div class="box">
+
+                    <span>LoginTemplateApp </span>
+
+                    <ul>
+                        <li>An Android app template for seamless signup and signin processes</li>
+                        <li>Features: Signup via email (with verification link) and Gmail, signin with email or Gmail,
+                            and create/update user profiles.</li>
+                        <li>Logout functionality ensures secure account signout.</li>
+                    </ul>
+
+                    <a href="https://github.com/kt-shashi/login-template"><i>[Click Here]</i><img src="images/link.svg"
+                            alt="Link" class="link-svg"></a>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- Skills -->
+
+    <section class="skills" id="skills">
+        <h1 class="heading"> <span>Skills</span></h1>
+
+        <div class="row">
+
+
+            <div class="column">
+
+                <div>
+                    <p>Programming Languages</p>
+                </div>
+
+                <div class="box">
+                    <h3>C++</h3>
+                </div>
+                <div class="box">
+                    <h3>C</h3>
+                </div>
+                <div class="box">
+                    <h3>Java</h3>
+                </div>
+            </div>
+
+            <div class="column">
+
+                <div>
+                    <p>Android Development</p>
+                </div>
+
+                <div class="box">
+                    <h3>Kotlin</h3>
+                </div>
+                <div class="box">
+                    <h3>XML</h3>
+                </div>
+                <div class="box">
+                    <h3>Design Principles</h3>
+                </div>
+            </div>
+
+            <div class="column">
+                <div>
+                    <p>Web Development</p>
+                </div>
+                <div class="box">
+                    <h3>HTML & CSS</h3>
+                </div>
+
+                <div class="box">
+                    <h3>JavaScript</h3>
+                </div>
+                <div class="box">
+                    <h3>NodeJS</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Coding profiles -->
+
+    <section class="coding" id="coding">
+
+        <h1 class="heading"> <span>Coding profiles</span></h1>
+
+        <div class="row">
+
+            <div class="counter">
+
+                <div class="box">
+                    <span>250+</span>
+                    <h3>
+                        <img src="images/leetcode.svg" alt="LeetCode Logo" class="logo-svg">
+                        LeetCode
+                    </h3>
+
+                    <a href="https://leetcode.com/shkt/"><img src="images/link.svg" alt="Link" class="link-svg"></a>
+
+                </div>
+
+                <div class="box">
+                    <span>650+</span>
+                    <h3>
+                        <img src="images/gfg.svg" alt="LeetCode Logo" class="logo-svg">
+                        GeeksForGeeks
+                    </h3>
+
+                    <a href="https://auth.geeksforgeeks.org/user/shashikt/practice"><img src="images/link.svg"
+                            alt="Link" class="link-svg"></a>
+
+                </div>
+
+                <div class="box">
+                    <span>2*</span>
+                    <h3>
+                        <img src="images/codechef.svg" alt="LeetCode Logo" class="logo-svg">
+                        CodeChef
+                    </h3>
+
+                    <a href="https://www.codechef.com/users/kt_shashi"><img src="images/link.svg" alt="Link"
+                            class="link-svg"></a>
+
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- contact section starts  -->
+
+    <section class="contact" id="contact">
+        <h1 class="heading"> <span>contact me</span></h1>
+        <div class="row">
+            <div class="content">
+                <h3 class="title">contact info</h3>
+                <div class="info">
+                    <h3> <i class="fas fa-envelope"></i> shkt03@gmail.com </h3>
+                    <h3> <i class="fas fa-phone fa-rotate-90"></i> &nbsp;+91-7044132891 </h3>
+                </div>
+            </div>
+            <form action="mailto:shkt03@gmail.com" method="post" enctype="text/plain">
+                <input type="hidden" name="subject" value="Contact Form Submission">
+                <input type="text" name="name" placeholder="name" class="box">
+                <input type="email" name="email" placeholder="email" class="box">
+                <input type="hidden" name="body" value="">
+                <textarea name="message" cols="30" rows="10" class="box message" placeholder="message"></textarea>
+                <button type="submit" class="btn" onclick="updateBodyField()"> send <i class="fas fa-paper-plane"></i>
+                </button>
+            </form>
+        </div>
+    </section>
+    <i class="fa-solid fa-phone"></i>
+    <!-- scroll top button  -->
+
+    <a href="#home" class="top">
+        <img src="images/scroll-top-img.png" alt="">
+    </a>
+
+    <!-- jquery cdn link  -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+    <!-- custom js file link  -->
+    <script src="script.js"></script>
+
+
 </body>
+
 </html>
