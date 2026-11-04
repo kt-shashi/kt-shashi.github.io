@@ -1,0 +1,466 @@
+.skip {
+  position: fixed;
+  top: -100px;
+  left: 20px;
+  z-index: 100;
+  background: var(--cream);
+  color: var(--navy);
+  padding: 12px;
+}
+.skip:focus {
+  top: 10px;
+}
+.site-header {
+  height: 90px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+}
+.brand {
+  font-size: 1.6rem;
+  font-weight: 700;
+  letter-spacing: -0.07em;
+}
+.brand span,
+h1 span,
+.contact h2 span {
+  color: var(--coral);
+}
+nav {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  font-size: 0.73rem;
+}
+.resume-link {
+  border: 1px solid var(--line);
+  padding: 10px 16px;
+}
+.menu-toggle {
+  display: none;
+}
+.hero {
+  padding-top: 65px;
+  padding-bottom: 50px;
+}
+.hero-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.location {
+  font-size: 0.75rem;
+  color: var(--muted);
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+.location i {
+  width: 6px;
+  height: 6px;
+  background: var(--coral);
+  border-radius: 50%;
+}
+h1 {
+  font-size: clamp(3.8rem, 8.7vw, 8rem);
+  margin: 1.5rem 0 1.8rem;
+  letter-spacing: -0.065em;
+}
+.hero-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 3rem;
+}
+.hero-bottom p {
+  max-width: 540px;
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  margin: 0;
+}
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  flex-shrink: 0;
+}
+.hero-foot {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--line);
+  padding: 40px 0 25px;
+  color: var(--muted);
+  font-size: 0.57rem;
+  letter-spacing: 0.12em;
+}
+.employer-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 0;
+  border-block: 1px solid var(--line);
+  gap: 20px;
+}
+.employer-heading h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+.employer-heading span {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+.job {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 3rem;
+  padding: 40px 0;
+  border-bottom: 1px solid var(--line);
+}
+.job h3 {
+  font-size: 1.7rem;
+}
+.job-meta p {
+  font-size: 0.75rem;
+  margin: 1rem 0 0.3rem;
+}
+.job-meta > span:last-child {
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+.current {
+  color: var(--coral);
+}
+.responsibilities {
+  padding-left: 18px;
+  color: var(--muted);
+  font-size: 0.88rem;
+  line-height: 1.9;
+}
+.responsibilities li {
+  padding-left: 6px;
+  margin-bottom: 0.7rem;
+}
+.responsibilities li::marker {
+  color: var(--coral);
+}
+.training {
+  display: flex;
+  gap: 30px;
+  font-size: 0.75rem;
+  padding: 1.5rem 0;
+  margin: 0;
+}
+.training span {
+  font-size: 0.6rem;
+  letter-spacing: 0.1em;
+}
+.project-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+}
+.project-art {
+  height: 300px;
+  background: #e6dcc8;
+  color: #213046;
+  position: relative;
+  overflow: hidden;
+  padding: 25px;
+}
+.art-label,
+.art-bottom {
+  font-size: 0.57rem;
+  letter-spacing: 0.15em;
+  position: absolute;
+  z-index: 1;
+}
+.art-bottom {
+  bottom: 25px;
+  left: 25px;
+}
+.art-type {
+  font-family: Georgia, serif;
+  font-size: 210px;
+  font-style: italic;
+  line-height: 1;
+  position: absolute;
+  left: 50%;
+  top: 48%;
+  transform: translate(-50%, -50%);
+  letter-spacing: -0.1em;
+}
+.art-number {
+  position: absolute;
+  bottom: 25px;
+  right: 25px;
+  font-size: 0.6rem;
+}
+.word-art {
+  background: #263e47;
+  color: #eee5cc;
+}
+.word-art .art-type {
+  font-size: 180px;
+  font-style: normal;
+  letter-spacing: -0.08em;
+}
+.project-title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 25px;
+}
+.project-title h3 {
+  font-size: 1.8rem;
+  margin: 0;
+}
+.project-title a {
+  font-size: 0.75rem;
+}
+.project p {
+  font-size: 0.85rem;
+  line-height: 1.8;
+}
+.project .tagline {
+  color: var(--cream);
+  margin-top: 0.6rem;
+}
+.features {
+  padding-left: 18px;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.9;
+}
+.core-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 45px;
+  border-block: 1px solid var(--line);
+  padding: 30px 0;
+  font-size: clamp(1.5rem, 3.2vw, 2.8rem);
+  letter-spacing: -0.04em;
+}
+.core-skills span:first-child {
+  color: var(--coral);
+}
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 35px;
+  margin-top: 40px;
+}
+.skills-grid h3 {
+  font-size: 0.85rem;
+  letter-spacing: 0;
+}
+.skills-grid p {
+  font-size: 0.8rem;
+  line-height: 1.9;
+}
+.about {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 5rem;
+}
+.about-copy {
+  font-size: 1rem;
+  line-height: 1.9;
+}
+.hobbies details {
+  border-bottom: 1px solid var(--line);
+}
+.hobbies summary {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  cursor: pointer;
+  min-height: 65px;
+  list-style: none;
+  font-size: 0.9rem;
+}
+.hobbies summary::-webkit-details-marker {
+  display: none;
+}
+.hobbies summary span:first-child {
+  color: var(--muted);
+  font-size: 0.65rem;
+}
+.hobbies summary span:last-child {
+  margin-left: auto;
+  font-size: 1.2rem;
+}
+.hobbies details[open] summary span:last-child {
+  transform: rotate(45deg);
+}
+.hobbies details p {
+  font-size: 0.85rem;
+  padding-left: 35px;
+}
+.contact {
+  padding-top: 120px;
+  padding-bottom: 55px;
+}
+.contact h2 {
+  font-size: clamp(2.7rem, 6vw, 5.5rem);
+  margin: 20px 0 40px;
+}
+.contact-bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: start;
+  gap: 2rem;
+}
+.contact-bottom p {
+  font-size: 0.85rem;
+}
+.email {
+  font-size: clamp(1.2rem, 2.4vw, 2rem);
+  letter-spacing: -0.03em;
+}
+.copy {
+  border: 0;
+  border-bottom: 1px solid var(--line);
+  background: none;
+  margin-left: 20px;
+  padding: 10px;
+  font-size: 0.7rem;
+}
+.copy-status {
+  min-height: 1.5rem;
+  margin-top: 1rem;
+}
+footer {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  border-top: 1px solid var(--line);
+  padding-block: 25px;
+  font-size: 0.65rem;
+  color: var(--muted);
+}
+@media (max-width: 1000px) {
+  nav {
+    gap: 15px;
+  }
+  .hero-bottom {
+    align-items: start;
+    flex-direction: column;
+    gap: 25px;
+  }
+  .about {
+    gap: 3rem;
+  }
+  .hero-foot span:last-child {
+    display: none;
+  }
+}
+@media (max-width: 700px) {
+  .site-header {
+    height: 75px;
+  }
+  .menu-toggle {
+    display: flex;
+    gap: 20px;
+    background: none;
+    border: 1px solid var(--line);
+    padding: 10px 15px;
+    min-height: 44px;
+    font-size: 0.75rem;
+  }
+  nav {
+    display: none;
+    position: absolute;
+    top: 75px;
+    left: 0;
+    right: 0;
+    background: var(--surface);
+    z-index: 10;
+    padding: 20px var(--gutter);
+    border-bottom: 1px solid var(--line);
+  }
+  nav.open {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0;
+  }
+  nav a {
+    padding: 12px;
+    font-size: 0.9rem;
+  }
+  .hero {
+    padding-top: 35px;
+    padding-bottom: 30px;
+  }
+  h1 {
+    font-size: clamp(3.2rem, 12vw, 5rem);
+    margin: 25px 0;
+  }
+  .hero-top {
+    gap: 15px;
+  }
+  .location {
+    font-size: 0.65rem;
+  }
+  .hero-foot {
+    padding-top: 30px;
+  }
+  .actions {
+    gap: 20px;
+  }
+  .job,
+  .project-grid,
+  .about {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+  .job {
+    padding: 30px 0;
+  }
+  .job h3 {
+    font-size: 1.5rem;
+  }
+  .employer-heading {
+    align-items: start;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .project-grid {
+    gap: 45px;
+  }
+  .project-art {
+    height: 260px;
+  }
+  .skills-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+  }
+  .skills-grid > div:last-child {
+    grid-column: 1/-1;
+  }
+  .training {
+    flex-direction: column;
+    gap: 8px;
+  }
+  .contact {
+    padding-top: 80px;
+  }
+  .contact-bottom {
+    flex-direction: column;
+  }
+  .copy {
+    display: block;
+    margin: 10px 0 0;
+    padding-left: 0;
+  }
+  .contact h2 {
+    font-size: clamp(2.5rem, 9vw, 4rem);
+  }
+  footer {
+    flex-wrap: wrap;
+  }
+  footer span:first-child {
+    width: 100%;
+  }
+}
