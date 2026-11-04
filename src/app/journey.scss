@@ -1,0 +1,175 @@
+:host {
+  display: block;
+}
+.section-heading {
+  margin-bottom: 1rem;
+}
+.map-stage {
+  position: relative;
+  margin-top: 2rem;
+}
+svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.map-label {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  border: 0;
+  background: var(--navy);
+  padding: 8px 12px;
+  text-align: left;
+  white-space: nowrap;
+  min-height: 48px;
+}
+.map-label strong {
+  display: block;
+  font-size: 1rem;
+}
+.map-label span {
+  display: block;
+  font-size: 0.68rem;
+  color: var(--muted);
+  margin-top: 4px;
+}
+.map-label.selected {
+  outline: 1px solid var(--coral);
+}
+.map-label.selected strong:before {
+  content: '↗ ';
+  color: var(--coral);
+}
+.map-caption {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  color: var(--muted);
+  font-size: 0.62rem;
+  letter-spacing: 0.1em;
+  padding: 1rem 0;
+}
+.map-caption a {
+  letter-spacing: 0;
+}
+.mobile-map-label {
+  display: none;
+}
+.journey-controls {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  border-block: 1px solid var(--line);
+}
+.journey-controls button {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  border: 0;
+  border-right: 1px solid var(--line);
+  background: none;
+  padding: 20px 12px;
+  font-size: 0.8rem;
+  min-height: 48px;
+}
+.journey-controls button span {
+  color: var(--muted);
+  font-size: 0.65rem;
+}
+.journey-controls .selected {
+  background: var(--surface);
+  box-shadow: inset 0 -2px var(--coral);
+}
+.place-details {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 2rem;
+  padding: 2rem 3rem 2rem 2rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--line);
+}
+.place-details h3 {
+  font-size: 2rem;
+  margin: 0.5rem 0;
+}
+.place-details p {
+  font-size: 0.9rem;
+  margin: 0 0 0.75rem;
+}
+.close {
+  position: absolute;
+  right: 0.5rem;
+  top: 0.5rem;
+  font-size: 1.5rem;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: 0;
+}
+.education {
+  margin-top: 2rem;
+  border-bottom: 1px solid var(--line);
+}
+summary {
+  padding: 1.4rem 0;
+  cursor: pointer;
+  font-weight: 600;
+}
+summary span {
+  float: right;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+.education-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  padding-bottom: 1.5rem;
+}
+.education h3 {
+  font-size: 0.85rem;
+  color: var(--coral);
+}
+.education p {
+  font-size: 0.82rem;
+  color: var(--muted);
+  line-height: 1.8;
+}
+@media (max-width: 700px) {
+  .map-label {
+    display: none;
+  }
+  .mobile-map-label {
+    display: block;
+    font-size: 30px;
+  }
+  .map-stage {
+    margin-inline: -12px;
+  }
+  .map-caption {
+    font-size: 0.5rem;
+  }
+  .journey-controls {
+    grid-template-columns: 1fr 1fr;
+  }
+  .journey-controls button {
+    border-bottom: 1px solid var(--line);
+  }
+  .journey-controls button:last-child {
+    grid-column: 1/-1;
+  }
+  .place-details,
+  .education-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  .place-details {
+    padding: 1.5rem 2.8rem 1.5rem 1rem;
+  }
+  summary span {
+    float: none;
+    display: block;
+    margin-top: 0.5rem;
+  }
+}

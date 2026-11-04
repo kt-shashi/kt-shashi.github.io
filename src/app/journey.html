@@ -1,0 +1,139 @@
+<section id="journey" class="journey section-shell" aria-labelledby="journey-title">
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">01 / THE PLACES THAT SHAPED ME</span>
+      <h2 id="journey-title">A journey, in places.</h2>
+    </div>
+    <p>From roots to what’s next.<br />Explore a place along the way.</p>
+  </div>
+  <div class="map-stage" (mouseleave)="leave()">
+    <svg
+      viewBox="0 0 1200 690"
+      role="img"
+      aria-label="Map of northern and central India showing Gorakhpur, Kolkata, Jamshedpur, Pune and Mumbai. Use the location buttons to explore."
+    >
+      <defs>
+        <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+          <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#f5ebd8" stroke-opacity=".035" />
+        </pattern>
+        <clipPath id="land-clip"><rect width="1200" height="660" /></clipPath>
+      </defs>
+      <rect width="1200" height="690" fill="url(#grid)" />
+      <g clip-path="url(#land-clip)">
+        <path [attr.d]="path" fill="#192a40" stroke="#667181" stroke-width="1.3" />
+      </g>
+      <polyline
+        [attr.points]="route"
+        fill="none"
+        stroke="#f47c6a"
+        stroke-opacity=".5"
+        stroke-width="1.5"
+        stroke-dasharray="5 7"
+      />
+      @for (p of places; track p.id) {
+        <g>
+          <line
+            [attr.x1]="p.point[0]"
+            [attr.y1]="p.point[1]"
+            [attr.x2]="p.point[0] + p.offset[0]"
+            [attr.y2]="p.point[1] + p.offset[1]"
+            stroke="#a28d83"
+            stroke-width="1"
+          />
+          <circle
+            [attr.cx]="p.point[0]"
+            [attr.cy]="p.point[1]"
+            [attr.r]="active()?.id === p.id ? 12 : 7"
+            fill="#f47c6a"
+            stroke="#101c30"
+            stroke-width="3"
+          />
+          <text
+            class="mobile-map-label"
+            [attr.x]="p.point[0] + p.offset[0]"
+            [attr.y]="p.point[1] + p.offset[1]"
+            fill="#f5ebd8"
+            text-anchor="middle"
+          >
+            {{ p.city }}
+          </text>
+        </g>
+      }
+      <text x="1030" y="100" fill="#a7a99f" font-size="13" letter-spacing="3">N ↑</text>
+      <text x="525" y="470" fill="#a7a99f" opacity=".4" font-size="14" letter-spacing="8">
+        INDIA
+      </text>
+    </svg>
+    @for (p of places; track p.id) {
+      <button
+        class="map-label"
+        [class.selected]="active()?.id === p.id"
+        [style.left.%]="(p.point[0] + p.offset[0]) / 12"
+        [style.top.%]="(p.point[1] + p.offset[1]) / 6.9"
+        (mouseenter)="peek(p, $event)"
+        (focus)="peek(p, $event)"
+        (mouseleave)="leave()"
+        (blur)="leave()"
+        (click)="pin(p, $event)"
+        [attr.aria-label]="p.city + ' — ' + p.label"
+        [attr.aria-expanded]="active()?.id === p.id"
+        aria-controls="place-details"
+      >
+        <strong>{{ p.city }}</strong
+        ><span>{{ p.label }}</span>
+      </button>
+    }
+    <div class="map-caption">
+      <span>FIVE PLACES. ONE CONTINUING STORY.</span
+      ><a
+        href="https://www.naturalearthdata.com/about/terms-of-use/"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Map data: Natural Earth ↗</a
+      >
+    </div>
+  </div>
+  <div class="journey-controls" aria-label="Explore locations">
+    @for (p of places; track p.id; let i = $index) {
+      <button
+        (click)="pin(p, $event)"
+        [class.selected]="active()?.id === p.id"
+        [attr.aria-expanded]="active()?.id === p.id"
+        aria-controls="place-details"
+      >
+        <span>0{{ i + 1 }}</span
+        >{{ p.city }}<span aria-hidden="true">{{ active()?.id === p.id ? '−' : '+' }}</span>
+      </button>
+    }
+  </div>
+  @if (active(); as p) {
+    <section id="place-details" class="place-details" aria-labelledby="place-title">
+      <div>
+        <span class="eyebrow">{{ p.state }} / {{ p.label }}</span>
+        <h3 id="place-title">{{ p.city }}</h3>
+      </div>
+      <div>
+        @for (line of p.lines; track line) {
+          <p>{{ line }}</p>
+        }
+        @if (p.experience) {
+          <a class="text-link" [href]="'#' + p.experience">View experience ↗</a>
+        }
+      </div>
+      <button class="close" (click)="close()" aria-label="Close location details">×</button>
+    </section>
+  }
+  <details class="education" open>
+    <summary>Education along the way <span>2016 — 2024</span></summary>
+    <div class="education-grid">
+      @for (p of places.slice(1, 3); track p.id) {
+        <div>
+          <h3>{{ p.city }}</h3>
+          @for (line of p.lines; track line) {
+            <p>{{ line }}</p>
+          }
+        </div>
+      }
+    </div>
+  </details>
+</section>
