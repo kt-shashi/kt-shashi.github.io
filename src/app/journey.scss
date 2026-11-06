@@ -1,12 +1,32 @@
 :host {
   display: block;
 }
-.section-heading {
-  margin-bottom: 1rem;
+.opening {
+  display: grid;
+  grid-template-areas: 'intro map links';
+  grid-template-columns: minmax(0, 1fr) minmax(0, 3.4fr) minmax(0, 1fr);
+  gap: clamp(0.8rem, 1.8vw, 2rem);
+  align-items: center;
+  min-height: min(78svh, 52rem);
+  padding-block: clamp(1rem, 4vh, 3rem);
 }
 .map-stage {
   position: relative;
-  margin-top: 2rem;
+  grid-area: map;
+}
+@media (max-width: 1000px) {
+  .opening {
+    grid-template-columns: minmax(0, 1fr) auto;
+    grid-template-areas: 'intro toggle' 'links links' 'map map' 'bio bio';
+    min-height: auto;
+    gap: 0.5rem 1rem;
+    padding-block: 1rem;
+  }
+  .map-stage {
+    max-width: min(100%, 105svh);
+    justify-self: center;
+    width: 100%;
+  }
 }
 svg {
   display: block;
@@ -152,9 +172,7 @@ summary span {
   .map-label span {
     display: none;
   }
-  .map-stage {
-    margin-inline: -12px;
-  }
+
   .map-caption {
     font-size: 0.5rem;
   }

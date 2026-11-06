@@ -1,49 +1,47 @@
 <a class="skip" href="#main">Skip to content</a>
-<header class="site-header section-shell">
-  <a class="brand" href="#main" aria-label="Shashi, back to introduction">Shashi<span>.</span></a
-  ><button
-    id="menu-toggle"
-    class="menu-toggle"
-    (click)="menu.set(!menu())"
-    [attr.aria-expanded]="menu()"
-    aria-controls="navigation"
-  >
-    {{ menu() ? 'Close' : 'Menu' }} <span aria-hidden="true">{{ menu() ? '×' : '+' }}</span>
-  </button>
-  <nav id="navigation" [class.open]="menu()" aria-label="Main navigation">
-    <a href="#journey" (click)="menu.set(false)">Journey</a
-    ><a href="#work" (click)="menu.set(false)">Work</a
-    ><a href="#projects" (click)="menu.set(false)">Projects</a
-    ><a href="#skills" (click)="menu.set(false)">Skills</a
-    ><a href="#about" (click)="menu.set(false)">About</a
-    ><a href="#contact" (click)="menu.set(false)">Contact</a
-    ><a class="resume-link" [href]="identity.resume" target="_blank" rel="noopener noreferrer"
-      >View résumé ↗</a
-    >
-  </nav>
-</header>
 <main id="main">
-  <section class="hero section-shell" aria-labelledby="intro-title">
-    <div class="hero-top">
-      <span class="eyebrow">FULL-STACK DEVELOPER</span
-      ><span class="location"><i aria-hidden="true"></i>Mumbai, India</span>
-    </div>
-    <h1 id="intro-title">Hi, I’m Shashi<span>.</span></h1>
-    <div class="hero-bottom">
-      <p>{{ identity.intro }}</p>
-      <div class="actions">
-        <a class="button primary" href="#work">View work <span>↓</span></a
-        ><a class="text-link" [href]="identity.resume" target="_blank" rel="noopener noreferrer"
-          >View résumé ↗</a
-        >
+  <app-journey>
+    <div opening-intro class="opening-intro">
+      <div class="greeting">
+        <span class="eyebrow">{{ identity.role }}</span>
+        <h1 id="intro-title">
+          Hi, I’m <a href="#main">Shashi<span>.</span></a>
+        </h1>
+        <span class="location"><i aria-hidden="true"></i>Mumbai, India</span>
+      </div>
+      <div class="intro-body">
+        <p>{{ identity.intro }}</p>
+        <div class="intro-actions">
+          <a class="button primary" href="#work">View work ↓</a
+          ><a class="text-link" [href]="identity.resume" target="_blank" rel="noopener noreferrer"
+            >View résumé ↗</a
+          >
+        </div>
       </div>
     </div>
-    <div class="hero-foot">
-      <span>JAVA / SPRING BOOT / ANGULAR</span
-      ><span>ROOTED IN PLACES. BUILT THROUGH EXPERIENCE.</span>
-    </div>
-  </section>
-  <app-journey />
+    <div opening-nav class="opening-nav">
+      <button
+        id="menu-toggle"
+        class="menu-toggle"
+        (click)="menu.set(!menu())"
+        [attr.aria-expanded]="menu()"
+        aria-controls="navigation"
+      >
+        {{ menu() ? 'Close' : 'Menu' }} <span aria-hidden="true">{{ menu() ? '×' : '+' }}</span>
+      </button>
+      <nav id="navigation" [class.open]="menu()" aria-label="Main navigation">
+        <a href="#journey" (click)="menu.set(false)">Journey</a
+        ><a href="#work" (click)="menu.set(false)">Work</a
+        ><a href="#projects" (click)="menu.set(false)">Projects</a
+        ><a href="#skills" (click)="menu.set(false)">Skills</a
+        ><a href="#about" (click)="menu.set(false)">About</a
+        ><a href="#contact" (click)="menu.set(false)">Contact</a
+        ><a class="resume-link" [href]="identity.resume" target="_blank" rel="noopener noreferrer"
+          >View résumé ↗</a
+        >
+      </nav>
+    </div></app-journey
+  >
   <section id="work" class="section-shell content-section" aria-labelledby="work-title">
     <div class="section-heading">
       <div>
