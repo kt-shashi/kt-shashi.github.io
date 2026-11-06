@@ -3,4 +3,11 @@
 <main #panel id="main" tabindex="-1">
   <div class="page"><router-outlet /></div>
 </main>
+@if (mapTransition.overlay(); as transition) {
+  <div class="map-transition" aria-hidden="true" inert>
+    <div class="transition-page">
+      <app-journey [transitionId]="transition.id" [transitionDestination]="transition.destination" />
+    </div>
+  </div>
+}
 <app-cursor />

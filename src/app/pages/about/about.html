@@ -4,22 +4,13 @@
   </div>
   <div class="hobby-grid">
     @for (hobby of hobbies; track hobby.name) {
-      <article class="hobby-card depth-card">
-        <img [src]="hobby.image" alt="" draggable="false" data-cursor-exclude />
-        <div class="hobby-body">
-          @if (hobby.expandable) {
-            <details #gamingDetails (toggle)="gaming.set(gamingDetails.open)">
-              <summary>{{ hobby.name }} <span aria-hidden="true">+</span></summary>
-              @if (gaming()) {
-                <p>{{ hobby.detail }}</p>
-              }
-            </details>
-          } @else {
-            <h2>{{ hobby.name }}</h2>
-            <p>{{ hobby.detail }}</p>
-          }
-        </div>
-      </article>
+    <article class="hobby-card depth-card">
+      <img [src]="hobby.image" alt="" draggable="false" data-cursor-exclude />
+      <div class="hobby-body">
+        <h2>{{ hobby.name }}</h2>
+        <p>{{ hobby.detail }}</p>
+      </div>
+    </article>
     }
   </div>
 </section>

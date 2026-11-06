@@ -1,6 +1,30 @@
 :host {
   display: block;
 }
+.departing .greeting,
+.departing .intro-body,
+.departing .map-caption,
+.departing .map-labels,
+.departing .city-mark,
+.departing polyline {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+.map-stage.fading {
+  opacity: 0;
+  transition: opacity 350ms ease;
+}
+.map-label.transition-region {
+  bottom: 1rem;
+  left: 1rem;
+  transform: none;
+  border-left: 2px solid var(--coral);
+}
+.map-label.transition-region strong {
+  color: var(--coral);
+  font-size: 1.1rem;
+}
 .opening {
   display: grid;
   grid-template-areas: 'intro map';
@@ -47,7 +71,7 @@ svg {
   display: block;
   font-size: 1rem;
 }
-.map-label span {
+.map-label :is(span, small) {
   display: block;
   font-size: 0.68rem;
   color: var(--muted);
