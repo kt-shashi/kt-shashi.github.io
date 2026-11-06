@@ -37,4 +37,4 @@ Map coordinates are longitude/latitude. Never move city coordinates to resolve l
 
 The production build and four focused unit tests passed during initial implementation. The page subsequently loaded successfully in the in-app browser after a stalled development server was replaced. The production build currently reports a component stylesheet size warning (about 6 KB versus the 4 KB warning threshold).
 
-A complete desktop/tablet/mobile visual and accessibility audit remains pending. Details currently appear beneath the map on all screen sizes; mobile uses large location-list controls rather than interactive SVG dots. Desktop floating-panel behavior and the full interaction matrix in PLAN.md remain follow-up work. No end-to-end runner is configured, and no full browser-console, touch-device, or screen-reader audit is claimed.
+A complete desktop/tablet/mobile visual and accessibility audit remains pending. City markers and the location list open a floating detail panel positioned within the viewport. No end-to-end runner is configured, and no full browser-console, touch-device, or screen-reader audit is claimed.

@@ -31,7 +31,7 @@
         stroke-dasharray="5 7"
       />
       @for (p of places; track p.id) {
-        <g>
+        <g class="city-mark" (click)="select(p, labels.children.item($index))">
           <line
             [attr.x1]="p.point[0]"
             [attr.y1]="p.point[1]"
@@ -48,15 +48,6 @@
             stroke="#101c30"
             stroke-width="3"
           />
-          <text
-            class="mobile-map-label"
-            [attr.x]="p.point[0] + p.offset[0]"
-            [attr.y]="p.point[1] + p.offset[1]"
-            fill="#f5ebd8"
-            text-anchor="middle"
-          >
-            {{ p.city }}
-          </text>
         </g>
       }
       <text x="1030" y="100" fill="#a7a99f" font-size="13" letter-spacing="3">N ↑</text>
@@ -64,34 +55,36 @@
         INDIA
       </text>
     </svg>
-    @for (p of places; track p.id) {
-      <button
-        class="map-label"
-        [class.selected]="active()?.id === p.id"
-        [style.left.%]="(p.point[0] + p.offset[0]) / 12"
-        [style.top.%]="(p.point[1] + p.offset[1]) / 6.9"
-        (mouseenter)="peek(p, $event)"
-        (focus)="peek(p, $event)"
-        (mouseleave)="leave()"
-        (blur)="leave()"
-        (click)="pin(p, $event)"
-        [attr.aria-label]="p.city + ' — ' + p.label"
-        [attr.aria-expanded]="active()?.id === p.id"
-        aria-controls="place-details"
-      >
-        <strong>{{ p.city }}</strong
-        ><span>{{ p.label }}</span>
-      </button>
-    }
-    <div class="map-caption">
-      <span>FIVE PLACES. ONE CONTINUING STORY.</span
-      ><a
-        href="https://www.naturalearthdata.com/about/terms-of-use/"
-        target="_blank"
-        rel="noopener noreferrer"
-        >Map data: Natural Earth ↗</a
-      >
+    <div class="map-labels" #labels>
+      @for (p of places; track p.id) {
+        <button
+          class="map-label"
+          [class.selected]="active()?.id === p.id"
+          [style.left.%]="(p.point[0] + p.offset[0]) / 12"
+          [style.top.%]="(p.point[1] + p.offset[1]) / 6.9"
+          (mouseenter)="peek(p, $event)"
+          (focus)="peek(p, $event)"
+          (mouseleave)="leave()"
+          (blur)="leave()"
+          (click)="pin(p, $event)"
+          [attr.aria-label]="p.city + ' — ' + p.label"
+          [attr.aria-expanded]="active()?.id === p.id"
+          aria-controls="place-details"
+        >
+          <strong>{{ p.city }}</strong
+          ><span>{{ p.label }}</span>
+        </button>
+      }
     </div>
+  </div>
+  <div class="map-caption">
+    <span>FIVE PLACES. ONE CONTINUING STORY.</span
+    ><a
+      href="https://www.naturalearthdata.com/about/terms-of-use/"
+      target="_blank"
+      rel="noopener noreferrer"
+      >Map data: Natural Earth ↗</a
+    >
   </div>
   <div class="journey-controls" aria-label="Explore locations">
     @for (p of places; track p.id; let i = $index) {
@@ -107,7 +100,14 @@
     }
   </div>
   @if (active(); as p) {
-    <section id="place-details" class="place-details" aria-labelledby="place-title">
+    <section
+      #popup
+      id="place-details"
+      class="place-details"
+      role="dialog"
+      tabindex="-1"
+      aria-labelledby="place-title"
+    >
       <div>
         <span class="eyebrow">{{ p.state }} / {{ p.label }}</span>
         <h3 id="place-title">{{ p.city }}</h3>
@@ -117,7 +117,7 @@
           <p>{{ line }}</p>
         }
         @if (p.experience) {
-          <a class="text-link" [href]="'#' + p.experience">View experience ↗</a>
+          <a class="text-link" (click)="dismiss()" [href]="'#' + p.experience">View experience ↗</a>
         }
       </div>
       <button class="close" (click)="close()" aria-label="Close location details">×</button>

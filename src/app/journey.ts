@@ -1,4 +1,12 @@
-import { Component, computed, signal, HostListener } from '@angular/core';
+import {
+  Component,
+  computed,
+  signal,
+  HostListener,
+  ElementRef,
+  viewChild,
+  afterRenderEffect,
+} from '@angular/core';
 import { journey, Place } from './data/portfolio.data';
 import { indiaPath, projection } from './data/map.generated';
 @Component({
@@ -18,6 +26,67 @@ export class Journey {
   readonly route = this.places.map((p) => p.point.join(',')).join(' ');
   private trigger?: HTMLElement;
   private suppressed = false;
+  private readonly popup = viewChild<ElementRef<HTMLElement>>('popup');
+  private focusOnOpen = false;
+
+  constructor() {
+    afterRenderEffect(() => {
+      this.active();
+      this.selected();
+      const panel = this.popup()?.nativeElement;
+      if (!panel) return;
+      this.positionPopup();
+      if (this.focusOnOpen) {
+        panel.focus({ preventScroll: true });
+        this.focusOnOpen = false;
+      }
+    });
+  }
+
+  @HostListener('window:resize')
+  @HostListener('window:scroll')
+  positionPopup() {
+    const panel = this.popup()?.nativeElement;
+    if (!panel || !this.trigger) return;
+    const anchor = this.trigger.getBoundingClientRect();
+    const gap = 8;
+    const { clientWidth: width, clientHeight: height } = document.documentElement;
+    if (anchor.bottom < 0 || anchor.top > height) {
+      this.dismiss();
+      return;
+    }
+    const left = Math.max(
+      gap,
+      Math.min(
+        anchor.left + (anchor.width - panel.offsetWidth) / 2,
+        width - panel.offsetWidth - gap,
+      ),
+    );
+    const below = height - anchor.bottom;
+    const top =
+      below >= panel.offsetHeight + gap || below > anchor.top
+        ? anchor.bottom + gap
+        : anchor.top - panel.offsetHeight - gap;
+    panel.style.left = left + 'px';
+    panel.style.top = Math.max(gap, Math.min(top, height - panel.offsetHeight - gap)) + 'px';
+  }
+
+  @HostListener('document:pointerdown', ['$event'])
+  dismissOutside(event: PointerEvent) {
+    if (
+      this.active() &&
+      event.target instanceof Element &&
+      !event.target.closest('#place-details, .map-label, .journey-controls button, .city-mark')
+    ) {
+      this.dismiss();
+    }
+  }
+
+  dismiss() {
+    this.focusOnOpen = false;
+    this.selected.set(null);
+    this.preview.set(null);
+  }
   project([lon, lat]: [number, number]): [number, number] {
     const r = Math.PI / 180;
     const m = (l: number) => Math.log(Math.tan(Math.PI / 4 + (l * r) / 2));
@@ -33,19 +102,24 @@ export class Journey {
     }
   }
   pin(place: Place, event: Event) {
+    this.select(place, event.currentTarget as HTMLElement);
+  }
+  select(place: Place, anchor: Element | null) {
+    if (!(anchor instanceof HTMLElement)) return;
+    this.focusOnOpen = true;
     this.suppressed = false;
     this.selected.set(place.id);
     this.preview.set(null);
-    this.trigger = event.currentTarget as HTMLElement;
+    this.trigger = anchor;
+    this.positionPopup();
   }
   leave() {
     this.suppressed = false;
   }
   @HostListener('document:keydown.escape') close() {
-    const had = !!this.active();
-    this.selected.set(null);
-    this.preview.set(null);
+    if (!this.active()) return;
+    this.dismiss();
     this.suppressed = true;
-    if (had) this.trigger?.focus();
+    this.trigger?.focus({ preventScroll: true });
   }
 }
