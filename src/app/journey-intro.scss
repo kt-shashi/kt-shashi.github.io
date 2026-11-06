@@ -1,0 +1,34 @@
+.intro-playing {
+  .greeting,
+  .intro-body,
+  .map-caption {
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 350ms ease;
+  }
+  &.intro-content-visible {
+    .greeting,
+    .intro-body,
+    .map-caption {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+  .map-label:not([hidden]) {
+    animation: city-appears 220ms ease both;
+    pointer-events: none;
+  }
+}
+@keyframes city-appears {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .intro-playing .map-label {
+    animation: none;
+  }
+}

@@ -4,6 +4,8 @@ import { filter } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Navigation } from './navigation/navigation';
 import { Cursor } from './cursor/cursor';
+import { Journey } from './journey';
+import { MapTransition } from './map-transition';
 
 @Component({
   selector: 'app-root',
@@ -11,11 +13,12 @@ import { Cursor } from './cursor/cursor';
     '(document:contextmenu)': '$event.preventDefault()',
     '(document:copy)': '$event.preventDefault()',
   },
-  imports: [Navigation, RouterOutlet, Cursor],
+  imports: [Navigation, RouterOutlet, Cursor, Journey],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })
 export class App {
+  readonly mapTransition = inject(MapTransition);
   private readonly panel = viewChild.required<ElementRef<HTMLElement>>('panel');
   private readonly router = inject(Router);
   private readonly injector = inject(Injector);

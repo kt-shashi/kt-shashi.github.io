@@ -12,6 +12,8 @@ The retained feature is `tools/india.geojson` (`ADM0_A3 = IND`), preserving the 
 
 The dotted internal boundaries come from Natural Earth's public-domain [1:10m Admin 1 boundary lines](https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_10m_admin_1_states_provinces_lines.geojson). The local snapshot in `tools/india-admin1-lines.geojson` includes the lines with `ADM0_A3 = IND`, simplified with a Douglas–Peucker tolerance of 0.015 degrees for this display scale. The generator uses the same projection for the national outline and the subdivision lines.
 
+The highlighted Maharashtra, Jharkhand and West Bengal regions use Natural Earth's public-domain [1:10m Admin 1 state polygons](https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_10m_admin_1_states_provinces.geojson), downloaded on 6 November 2026. The three retained geometries, simplified to a 0.005-degree Douglas–Peucker tolerance, are in `tools/transition-states.geojson`. The map generator projects them with the same Mercator projection as the India map and exports `statePaths` for the Work, Projects and Education transitions.
+
 The five coordinates were extracted by exact city name from the Natural Earth 1:10m populated places dataset, downloaded on the same date:
 https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_10m_populated_places.geojson
 

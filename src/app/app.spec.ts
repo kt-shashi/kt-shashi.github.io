@@ -32,7 +32,7 @@ describe('Portfolio interactions', () => {
       expect(f.nativeElement.querySelector('main h1')).not.toBeNull();
       expect(f.nativeElement.querySelectorAll('main .section-shell:not(footer)')).toHaveLength(1);
       expect(f.nativeElement.querySelector('main section')?.id).toBe(section.path);
-      if (section.path === 'about') expect(f.nativeElement.textContent).not.toContain('DEVTA');
+      if (section.path === 'about') expect(f.nativeElement.textContent).toContain('DEVTA');
     }
   });
   it('previews, pins, changes and dismisses locations without immediately reopening', () => {

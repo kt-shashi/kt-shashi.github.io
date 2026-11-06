@@ -1,4 +1,5 @@
 import { Routes } from '@angular/router';
+import { mapTransitionGuard } from './map-transition.guard';
 
 export const sections = [
   {
@@ -44,6 +45,9 @@ export const routes: Routes = [
     path,
     loadComponent,
     title: label + ' · Shashi Kant — Full-Stack Developer',
+    ...(path === 'work' || path === 'projects' || path === 'education'
+      ? { canActivate: [mapTransitionGuard(path)] }
+      : {}),
   })),
   { path: '**', redirectTo: 'journey' },
 ];
