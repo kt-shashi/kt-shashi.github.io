@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
 import { projects } from '../../data/portfolio.data';
+import { ProjectGallery } from './project-gallery';
 
 @Component({
   selector: 'app-projects',
+  imports: [ProjectGallery],
   templateUrl: './projects.html',
   styleUrl: './projects.scss',
 })

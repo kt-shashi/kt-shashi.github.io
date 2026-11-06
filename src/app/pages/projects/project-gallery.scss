@@ -1,0 +1,42 @@
+:host {
+  display: block;
+}
+.preview {
+  display: grid;
+  place-items: center;
+  padding: clamp(0.65rem, 2vw, 1.25rem);
+  background: #132135;
+}
+.preview img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+.portrait-series {
+  grid-template-columns: repeat(2, minmax(0, 230px));
+  justify-content: center;
+  gap: clamp(0.5rem, 1.2vw, 1rem);
+}
+.portrait-series img {
+  max-height: 46svh;
+  object-fit: contain;
+}
+.controls {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  color: var(--muted);
+  font-size: 0.75rem;
+}
+.controls button {
+  border: 0;
+  background: transparent;
+  color: var(--cream);
+  width: 44px;
+  height: 44px;
+}
+.controls button:hover {
+  color: var(--coral);
+}
