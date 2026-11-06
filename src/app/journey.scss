@@ -71,31 +71,6 @@ svg {
 .map-caption a {
   letter-spacing: 0;
 }
-.journey-controls {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  border-block: 1px solid var(--line);
-}
-.journey-controls button {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-  border: 0;
-  border-right: 1px solid var(--line);
-  background: none;
-  padding: 20px 12px;
-  font-size: 0.8rem;
-  min-height: 48px;
-}
-.journey-controls button span {
-  color: var(--muted);
-  font-size: 0.65rem;
-}
-.journey-controls .selected {
-  background: var(--surface);
-  box-shadow: inset 0 -2px var(--coral);
-}
 .city-mark {
   cursor: pointer;
 }
@@ -174,15 +149,6 @@ summary span {
 
   .map-caption {
     font-size: 0.5rem;
-  }
-  .journey-controls {
-    grid-template-columns: 1fr 1fr;
-  }
-  .journey-controls button {
-    border-bottom: 1px solid var(--line);
-  }
-  .journey-controls button:last-child {
-    grid-column: 1/-1;
   }
   .place-details,
   .education-grid {

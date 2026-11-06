@@ -82,19 +82,6 @@
       >Map data: Natural Earth ↗</a
     >
   </div>
-  <div class="journey-controls" aria-label="Explore locations">
-    @for (p of places; track p.id; let i = $index) {
-      <button
-        (click)="pin(p, $event)"
-        [class.selected]="active()?.id === p.id"
-        [attr.aria-expanded]="active()?.id === p.id"
-        aria-controls="place-details"
-      >
-        <span>0{{ i + 1 }}</span
-        >{{ p.city }}<span aria-hidden="true">{{ active()?.id === p.id ? '−' : '+' }}</span>
-      </button>
-    }
-  </div>
   @if (active(); as p) {
     <section
       #popup

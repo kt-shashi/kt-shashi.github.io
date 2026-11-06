@@ -76,7 +76,7 @@ export class Journey {
     if (
       this.active() &&
       event.target instanceof Element &&
-      !event.target.closest('#place-details, .map-label, .journey-controls button, .city-mark')
+      !event.target.closest('#place-details, .map-label, .city-mark')
     ) {
       this.dismiss();
     }

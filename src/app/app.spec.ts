@@ -41,7 +41,13 @@ describe('Portfolio interactions', () => {
   it('exposes all location controls and links assignments to real experience entries', async () => {
     const f = TestBed.createComponent(App);
     await f.whenStable();
-    expect(f.nativeElement.querySelectorAll('.journey-controls button').length).toBe(5);
+    const markers: HTMLButtonElement[] = Array.from(f.nativeElement.querySelectorAll('.map-label'));
+    expect(markers).toHaveLength(journey.length);
+    for (const [index, marker] of markers.entries()) {
+      marker.click();
+      await f.whenStable();
+      expect(f.nativeElement.querySelector('#place-title')?.textContent).toBe(journey[index].city);
+    }
     for (const p of journey.filter((p) => p.experience)) {
       expect(f.nativeElement.querySelector('#' + p.experience)).not.toBeNull();
     }
