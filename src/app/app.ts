@@ -7,6 +7,10 @@ import { Cursor } from './cursor/cursor';
 
 @Component({
   selector: 'app-root',
+  host: {
+    '(document:contextmenu)': '$event.preventDefault()',
+    '(document:copy)': '$event.preventDefault()',
+  },
   imports: [Navigation, RouterOutlet, Cursor],
   templateUrl: './app.html',
   styleUrl: './app.scss',

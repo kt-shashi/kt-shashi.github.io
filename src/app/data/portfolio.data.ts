@@ -1,6 +1,7 @@
 export interface Place {
   id: string;
   city: string;
+  memoryPhoto: string;
   state: string;
   label: string;
   coordinates: [number, number];
@@ -67,6 +68,7 @@ function educationLines(city: Qualification['city']): string[] {
 export const journey: Place[] = [
   {
     id: 'gorakhpur',
+    memoryPhoto: 'images/gorakhur.jpeg',
     city: 'Gorakhpur',
     state: 'Uttar Pradesh',
     label: 'Roots',
@@ -76,6 +78,7 @@ export const journey: Place[] = [
   },
   {
     id: 'kolkata',
+    memoryPhoto: 'images/kolkata.jpeg',
     city: 'Kolkata',
     state: 'West Bengal',
     label: 'School years & BCA',
@@ -85,6 +88,7 @@ export const journey: Place[] = [
   },
   {
     id: 'jamshedpur',
+    memoryPhoto: 'images/jamshedpur.jpeg',
     city: 'Jamshedpur',
     state: 'Jharkhand',
     label: 'MCA at NIT',
@@ -94,6 +98,7 @@ export const journey: Place[] = [
   },
   {
     id: 'pune',
+    memoryPhoto: 'images/pune.jpeg',
     city: 'Pune',
     state: 'Maharashtra',
     label: 'Android at TCS',
@@ -108,6 +113,7 @@ export const journey: Place[] = [
   },
   {
     id: 'mumbai',
+    memoryPhoto: 'images/mumbai.jpeg',
     city: 'Mumbai',
     state: 'Maharashtra',
     label: 'Full-stack at TCS',
@@ -238,11 +244,15 @@ export const skills = [
 export const about =
   'I’m Shashi, a full-stack developer at TCS in Mumbai. My work now connects Angular interfaces with Spring Boot APIs, building on earlier experience in Android development. From school and a BCA in Kolkata to an MCA at NIT Jamshedpur, then work in Pune and Mumbai, each place has been part of that journey. Away from software, I make time for games, badminton, and Rubik’s Cubes.';
 export const hobbies = [
-  { name: 'Playing video games', detail: 'In-game, I go by DEVTA.', symbol: '↗' },
-  { name: 'Badminton', detail: 'Away from the screen, I enjoy playing badminton.', symbol: '↗' },
+  { name: 'Playing video games', detail: 'In-game, I go by DEVTA.', image: 'images/gaming.jpeg' },
+  {
+    name: 'Badminton',
+    detail: 'Away from the screen, I enjoy playing badminton.',
+    image: 'images/badminton.jpeg',
+  },
   {
     name: 'Solving Rubik’s Cubes',
     detail: 'Another kind of problem-solving I enjoy: solving Rubik’s Cubes.',
-    symbol: '↗',
+    image: 'images/rubiks-cube.jpeg',
   },
 ];

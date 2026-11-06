@@ -11,8 +11,8 @@
     top: 0;
     left: 0;
     z-index: 200;
-    width: 2.25rem;
-    height: 2.25rem;
+    width: var(--cursor-diameter);
+    height: var(--cursor-diameter);
     border-radius: 50%;
     transform: translate(var(--cursor-x), var(--cursor-y)) translate(-50%, -50%);
   }
@@ -25,5 +25,9 @@
   :host::after {
     background: var(--coral);
     mix-blend-mode: multiply;
+  }
+  :host([data-portrait])::before,
+  :host([data-portrait])::after {
+    content: none;
   }
 }

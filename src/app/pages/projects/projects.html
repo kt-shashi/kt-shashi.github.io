@@ -8,7 +8,7 @@
   </div>
   <div class="project-grid">
     @for (project of projects; track project.name; let i = $index) {
-      <article class="project">
+      <article class="project depth-card">
         <div class="project-art" [class.word-art]="i === 1" aria-hidden="true">
           <span class="art-label">{{ project.kind }}</span
           ><span class="art-type">{{ project.visual }}</span
@@ -17,27 +17,29 @@
           }}</span
           ><span class="art-number">0{{ i + 1 }}</span>
         </div>
-        <div class="project-title">
-          <h3>{{ project.name }}</h3>
-          <a
-            [href]="project.url"
-            target="_blank"
-            rel="noopener noreferrer"
-            [attr.aria-label]="'View source for ' + project.name"
-            >View source ↗</a
-          >
-        </div>
-        <p class="tagline">{{ project.tagline }}</p>
-        <p>{{ project.description }}</p>
-        <ul class="features">
-          @for (feature of project.features; track feature) {
-            <li>{{ feature }}</li>
-          }
-        </ul>
-        <div class="tags">
-          @for (t of project.tech; track t) {
-            <span>{{ t }}</span>
-          }
+        <div class="project-body">
+          <div class="project-title">
+            <h3>{{ project.name }}</h3>
+            <a
+              [href]="project.url"
+              target="_blank"
+              rel="noopener noreferrer"
+              [attr.aria-label]="'View source for ' + project.name"
+              >View source ↗</a
+            >
+          </div>
+          <p class="tagline">{{ project.tagline }}</p>
+          <p>{{ project.description }}</p>
+          <ul class="features">
+            @for (feature of project.features; track feature) {
+              <li>{{ feature }}</li>
+            }
+          </ul>
+          <div class="tags">
+            @for (t of project.tech; track t) {
+              <span>{{ t }}</span>
+            }
+          </div>
         </div>
       </article>
     }

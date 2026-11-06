@@ -5,6 +5,7 @@
   font-display: swap;
 }
 :root {
+  --cursor-diameter: 120px;
   --navy: #101c30;
   --cream: #f5ebd8;
   --coral: #f47c6a;
@@ -19,6 +20,7 @@
   box-sizing: border-box;
 }
 html {
+  font-size: clamp(112.5%, calc(100% + 0.3vw), 125%);
   scroll-behavior: smooth;
   scroll-padding-top: 100px;
 }
@@ -27,7 +29,7 @@ body {
   background: var(--navy);
   color: var(--cream);
   font-family: var(--font);
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.6;
 }
 button,
@@ -73,7 +75,7 @@ h3 {
 h2,
 .section-heading h1,
 .about h1 {
-  font-size: clamp(2rem, 4vw, 3.6rem);
+  font-size: clamp(2rem, 5vw, 3.6rem);
   margin: 0.8rem 0 0;
 }
 h3 {
@@ -84,6 +86,26 @@ p {
 }
 .section-shell {
   padding-inline: var(--gutter);
+}
+.depth-card {
+  border: 1px solid rgb(245 235 216 / 12%);
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgb(245 235 216 / 7%), transparent 40%), var(--surface);
+  box-shadow:
+    inset 0 1px 0 rgb(245 235 216 / 12%),
+    inset 0 -1px 0 rgb(0 0 0 / 15%),
+    0 14px 30px -16px rgb(0 0 0 / 55%);
+  transition:
+    transform var(--motion) ease,
+    box-shadow var(--motion) ease;
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .depth-card:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      inset 0 1px 0 rgb(245 235 216 / 20%),
+      0 20px 36px -16px rgb(0 0 0 / 65%);
+  }
 }
 .content-section {
   padding-block: clamp(1.5rem, 4vh, 3rem);

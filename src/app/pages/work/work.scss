@@ -3,7 +3,6 @@
   justify-content: space-between;
   align-items: center;
   padding: 1.5rem 0;
-  border-block: 1px solid var(--line);
   gap: 20px;
 }
 .employer-heading h3 {
@@ -17,9 +16,9 @@
 .job {
   display: grid;
   grid-template-columns: 1fr 2fr;
-  gap: 3rem;
-  padding: 40px 0;
-  border-bottom: 1px solid var(--line);
+  gap: clamp(1.25rem, 3vw, 3rem);
+  padding: clamp(1.2rem, 3vw, 2rem);
+  margin-block: 0.75rem 1.5rem;
 }
 .job h3 {
   font-size: 1.7rem;
@@ -63,7 +62,7 @@
   .job {
     grid-template-columns: 1fr;
     gap: 25px;
-    padding: 30px 0;
+    padding: 1.2rem;
   }
   .job h3 {
     font-size: 1.5rem;

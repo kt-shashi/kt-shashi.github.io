@@ -1,45 +1,58 @@
-.about {
+.hobby-grid {
   display: grid;
-  grid-template-columns: 1fr 1.3fr;
-  gap: 5rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  align-items: start;
+  gap: clamp(1rem, 2vw, 1.75rem);
 }
-.about-copy {
-  font-size: 1rem;
-  line-height: 1.9;
+.hobby-card {
+  overflow: hidden;
+  min-width: 0;
 }
-.hobbies details {
-  border-bottom: 1px solid var(--line);
+.hobby-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
 }
-.hobbies summary {
+.hobby-body {
+  padding: 1.1rem;
+}
+.hobby-body h2,
+summary {
+  font-size: 1.1rem;
+  font-weight: 500;
+  line-height: 1.4;
+  letter-spacing: -0.025em;
+  margin: 0;
+}
+.hobby-body p {
+  font-size: 0.85rem;
+  line-height: 1.8;
+  margin: 0.75rem 0 0;
+}
+summary {
   display: flex;
-  gap: 20px;
   align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
   cursor: pointer;
-  min-height: 65px;
   list-style: none;
-  font-size: 0.9rem;
+  min-height: 44px;
 }
-.hobbies summary::-webkit-details-marker {
+summary::-webkit-details-marker {
   display: none;
 }
-.hobbies summary span:first-child {
-  color: var(--muted);
-  font-size: 0.65rem;
+summary span {
+  color: var(--coral);
 }
-.hobbies summary span:last-child {
-  margin-left: auto;
-  font-size: 1.2rem;
-}
-.hobbies details[open] summary span:last-child {
+details[open] summary span {
   transform: rotate(45deg);
 }
-.hobbies details p {
-  font-size: 0.85rem;
-  padding-left: 35px;
-}
 @media (max-width: 700px) {
-  .about {
+  .hobby-grid {
     grid-template-columns: 1fr;
-    gap: 25px;
+  }
+  .hobby-card img {
+    aspect-ratio: 4 / 3;
   }
 }
