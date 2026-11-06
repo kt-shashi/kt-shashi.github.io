@@ -87,6 +87,26 @@ p {
 .section-shell {
   padding-inline: var(--gutter);
 }
+.depth-card {
+  border: 1px solid rgb(245 235 216 / 12%);
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgb(245 235 216 / 7%), transparent 40%), var(--surface);
+  box-shadow:
+    inset 0 1px 0 rgb(245 235 216 / 12%),
+    inset 0 -1px 0 rgb(0 0 0 / 15%),
+    0 14px 30px -16px rgb(0 0 0 / 55%);
+  transition:
+    transform var(--motion) ease,
+    box-shadow var(--motion) ease;
+}
+@media (hover: hover) and (prefers-reduced-motion: no-preference) {
+  .depth-card:hover {
+    transform: translateY(-3px);
+    box-shadow:
+      inset 0 1px 0 rgb(245 235 216 / 20%),
+      0 20px 36px -16px rgb(0 0 0 / 65%);
+  }
+}
 .content-section {
   padding-block: clamp(1.5rem, 4vh, 3rem);
 }

@@ -11,13 +11,13 @@ export class Cursor {
   private readonly destroyRef = inject(DestroyRef);
 
   private touchesPhoto(x: number, y: number): boolean {
-    const photo = document.querySelector('[data-cursor-exclude]');
-    if (!photo) return false;
-    const bounds = photo.getBoundingClientRect();
     const radius = parseFloat(getComputedStyle(this.element).getPropertyValue('--cursor-diameter')) / 2;
-    const dx = Math.max(bounds.left - x, 0, x - bounds.right);
-    const dy = Math.max(bounds.top - y, 0, y - bounds.bottom);
-    return dx * dx + dy * dy <= radius * radius;
+    return Array.from(document.querySelectorAll('[data-cursor-exclude]')).some((photo) => {
+      const bounds = photo.getBoundingClientRect();
+      const dx = Math.max(bounds.left - x, 0, x - bounds.right);
+      const dy = Math.max(bounds.top - y, 0, y - bounds.bottom);
+      return dx * dx + dy * dy <= radius * radius;
+    });
   }
 
   constructor() {
