@@ -6,16 +6,20 @@ import {
   ElementRef,
   viewChild,
   afterRenderEffect,
+  inject,
+  DestroyRef,
 } from '@angular/core';
-import { journey, Place } from './data/portfolio.data';
+import { RouterLink } from '@angular/router';
+import { identity, journey, Place } from './data/portfolio.data';
 import { indiaPath, projection } from './data/map.generated';
 @Component({
   selector: 'app-journey',
-  standalone: true,
+  imports: [RouterLink],
   templateUrl: './journey.html',
   styleUrl: './journey.scss',
 })
 export class Journey {
+  readonly identity = identity;
   readonly path = indiaPath;
   readonly places = journey.map((p) => ({ ...p, point: this.project(p.coordinates) }));
   readonly selected = signal<string | null>(null);
@@ -28,8 +32,13 @@ export class Journey {
   private suppressed = false;
   private readonly popup = viewChild<ElementRef<HTMLElement>>('popup');
   private focusOnOpen = false;
+  private readonly main = inject(ElementRef<HTMLElement>).nativeElement.closest('main');
 
   constructor() {
+    const reposition = () => this.positionPopup();
+    this.main?.addEventListener('scroll', reposition, { passive: true });
+    inject(DestroyRef).onDestroy(() => this.main?.removeEventListener('scroll', reposition));
+
     afterRenderEffect(() => {
       this.active();
       this.selected();
@@ -50,8 +59,12 @@ export class Journey {
     if (!panel || !this.trigger) return;
     const anchor = this.trigger.getBoundingClientRect();
     const gap = 8;
-    const { clientWidth: width, clientHeight: height } = document.documentElement;
-    if (anchor.bottom < 0 || anchor.top > height) {
+    const bounds = this.main?.getBoundingClientRect();
+    const width = bounds?.right ?? document.documentElement.clientWidth;
+    const height = bounds?.bottom ?? document.documentElement.clientHeight;
+    const panelTop = bounds?.top ?? 0;
+    panel.style.maxHeight = Math.max(0, height - panelTop - 2 * gap) + 'px';
+    if (anchor.bottom < panelTop || anchor.top > height) {
       this.dismiss();
       return;
     }
@@ -64,11 +77,12 @@ export class Journey {
     );
     const below = height - anchor.bottom;
     const top =
-      below >= panel.offsetHeight + gap || below > anchor.top
+      below >= panel.offsetHeight + gap || below > anchor.top - panelTop
         ? anchor.bottom + gap
         : anchor.top - panel.offsetHeight - gap;
     panel.style.left = left + 'px';
-    panel.style.top = Math.max(gap, Math.min(top, height - panel.offsetHeight - gap)) + 'px';
+    panel.style.top =
+      Math.max(panelTop + gap, Math.min(top, height - panel.offsetHeight - gap)) + 'px';
   }
 
   @HostListener('document:pointerdown', ['$event'])

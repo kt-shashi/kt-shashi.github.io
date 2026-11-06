@@ -1,0 +1,45 @@
+.about {
+  display: grid;
+  grid-template-columns: 1fr 1.3fr;
+  gap: 5rem;
+}
+.about-copy {
+  font-size: 1rem;
+  line-height: 1.9;
+}
+.hobbies details {
+  border-bottom: 1px solid var(--line);
+}
+.hobbies summary {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+  cursor: pointer;
+  min-height: 65px;
+  list-style: none;
+  font-size: 0.9rem;
+}
+.hobbies summary::-webkit-details-marker {
+  display: none;
+}
+.hobbies summary span:first-child {
+  color: var(--muted);
+  font-size: 0.65rem;
+}
+.hobbies summary span:last-child {
+  margin-left: auto;
+  font-size: 1.2rem;
+}
+.hobbies details[open] summary span:last-child {
+  transform: rotate(45deg);
+}
+.hobbies details p {
+  font-size: 0.85rem;
+  padding-left: 35px;
+}
+@media (max-width: 700px) {
+  .about {
+    grid-template-columns: 1fr;
+    gap: 25px;
+  }
+}

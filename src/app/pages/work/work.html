@@ -1,0 +1,54 @@
+<section id="work" class="section-shell content-section" aria-labelledby="work-title">
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">02 / WORK EXPERIENCE</span>
+      <h1 id="work-title">Built in the real world.</h1>
+    </div>
+    <p>Enterprise platforms.<br />Android experiences.</p>
+  </div>
+  <div class="employer-heading">
+    <h3>Tata Consultancy Services</h3>
+    <span>2024 — Present</span>
+  </div>
+  @for (job of experience; track job.id; let i = $index) {
+    @if (i === 2) {
+      <p class="training"><span>TCS TRAINING</span>{{ training }}</p>
+      <div class="employer-heading">
+        <h3>{{ job.employer }}</h3>
+        <span>{{ job.location }}</span>
+      </div>
+    }
+    <article class="job" [id]="job.id" tabindex="-1">
+      <div class="job-meta">
+        <span class="eyebrow"
+          >{{ job.location }}
+          @if (i === 0) {
+            <span class="current"> / CURRENT</span>
+          }
+        </span>
+        <p>{{ job.dates }}</p>
+        @if (job.title) {
+          <span>{{ job.title }}</span>
+        }
+      </div>
+      <div>
+        <h3>{{ job.role }}</h3>
+        <ul class="responsibilities">
+          @for (point of job.points; track point) {
+            <li>{{ point }}</li>
+          }
+        </ul>
+        <div class="tags">
+          @for (t of job.tech; track t) {
+            <span>{{ t }}</span>
+          }
+        </div>
+        @if (job.certificate) {
+          <a class="text-link" [href]="job.certificate" target="_blank" rel="noopener noreferrer"
+            >View certificate ↗</a
+          >
+        }
+      </div>
+    </article>
+  }
+</section>

@@ -1,0 +1,15 @@
+<section id="education" class="section-shell content-section" aria-labelledby="education-title">
+  <div class="section-heading"><h1 id="education-title">Education</h1></div>
+  <ol>
+    @for (entry of qualifications; track entry.institution) {
+      <li>
+        <span class="dates">{{ entry.dates }}</span>
+        <div>
+          <h2>{{ entry.qualification }}</h2>
+          <p>{{ entry.institution }}</p>
+        </div>
+        <strong>{{ entry.result }}</strong>
+      </li>
+    }
+  </ol>
+</section>

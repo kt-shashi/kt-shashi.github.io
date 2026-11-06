@@ -3,29 +3,28 @@
 }
 .opening {
   display: grid;
-  grid-template-areas: 'intro map links';
-  grid-template-columns: minmax(0, 1fr) minmax(0, 4.4fr) minmax(0, 1fr);
+  grid-template-areas: 'intro map';
+  grid-template-columns: minmax(0, 1fr) minmax(0, 4.4fr);
   gap: clamp(0.8rem, 1.8vw, 2rem);
   align-items: center;
-  min-height: 100vh;
-  min-height: 100dvh;
   padding-block: clamp(1rem, 4vh, 3rem);
 }
 .map-stage {
   position: relative;
   grid-area: map;
+  width: min(100%, 155svh);
+  justify-self: center;
 }
 @media (max-width: 1000px) {
   .opening {
-    grid-template-columns: minmax(0, 1fr) auto;
-    grid-template-areas: 'intro toggle' 'links links' 'map map' 'bio bio';
-    grid-template-rows: auto auto 1fr auto;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-areas: 'intro' 'map' 'bio';
+    grid-template-rows: auto 1fr auto;
     gap: 0.5rem 1rem;
     padding-block: 1rem;
   }
   .map-stage {
     max-width: 115svh;
-    justify-self: center;
     width: calc(100% + 1rem);
   }
 }
@@ -79,7 +78,7 @@ svg {
   position: fixed;
   z-index: 20;
   width: min(22rem, calc(100vw - 16px));
-  max-height: calc(100dvh - 16px);
+  scrollbar-width: none;
   overflow-y: auto;
   padding: 1.25rem 3rem 1rem 1.25rem;
   background: var(--surface);
@@ -105,35 +104,6 @@ svg {
   background: none;
   border: 0;
 }
-.education {
-  margin-top: 2rem;
-  border-bottom: 1px solid var(--line);
-}
-summary {
-  padding: 1.4rem 0;
-  cursor: pointer;
-  font-weight: 600;
-}
-summary span {
-  float: right;
-  font-size: 0.75rem;
-  color: var(--muted);
-}
-.education-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 3rem;
-  padding-bottom: 1.5rem;
-}
-.education h3 {
-  font-size: 0.85rem;
-  color: var(--coral);
-}
-.education p {
-  font-size: 0.82rem;
-  color: var(--muted);
-  line-height: 1.8;
-}
 @media (max-width: 700px) {
   .map-label {
     min-height: 44px;
@@ -151,17 +121,65 @@ summary span {
   .map-caption {
     font-size: 0.5rem;
   }
-  .place-details,
-  .education-grid {
-    grid-template-columns: 1fr;
-    gap: 1rem;
-  }
   .place-details {
     padding: 1.5rem 2.8rem 1.5rem 1rem;
   }
-  summary span {
-    float: none;
-    display: block;
-    margin-top: 0.5rem;
+}
+
+h1 {
+  font-size: clamp(2.7rem, 4.4vw, 4.8rem);
+  letter-spacing: -0.065em;
+  margin: 0.6rem 0 1rem;
+}
+h1 a {
+  white-space: nowrap;
+}
+h1 span {
+  color: var(--coral);
+}
+.opening-intro {
+  grid-area: intro;
+}
+.location {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+.location i {
+  width: 6px;
+  height: 6px;
+  background: var(--coral);
+  border-radius: 50%;
+}
+.intro-body p {
+  margin: 1.25rem 0;
+  font-size: 0.9rem;
+  line-height: 1.7;
+}
+.intro-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.35rem 1rem;
+}
+@media (max-width: 1000px) {
+  .opening-intro {
+    display: contents;
+  }
+  .greeting {
+    grid-area: intro;
+  }
+  h1 {
+    font-size: clamp(2.2rem, 6vw, 3.5rem);
+    margin: 0.25rem 0;
+  }
+  .intro-body {
+    grid-area: bio;
+  }
+  .intro-body p {
+    margin: 0.5rem 0;
+    max-width: 36rem;
   }
 }

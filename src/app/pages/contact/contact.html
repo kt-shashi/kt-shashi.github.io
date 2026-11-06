@@ -1,0 +1,15 @@
+<section id="contact" class="section-shell content-section contact" aria-labelledby="contact-title">
+  <span class="eyebrow">06 / GET IN TOUCH</span>
+  <h1 id="contact-title">Let’s build<br />something thoughtful<span>.</span></h1>
+  <div class="contact-bottom">
+    <div>
+      <p>Have a backend or full-stack opportunity in mind?</p>
+      <a class="email" [href]="'mailto:' + identity.email">{{ identity.email }} ↗</a
+      ><button class="copy" (click)="copyEmail()">Copy email</button>
+      <p class="copy-status" role="status">{{ copyStatus() }}</p>
+    </div>
+    <a class="button" [href]="identity.resume" target="_blank" rel="noopener noreferrer"
+      >View résumé ↗</a
+    >
+  </div>
+</section>

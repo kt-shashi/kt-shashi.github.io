@@ -1,6 +1,23 @@
 <section id="journey" class="journey section-shell" aria-label="Introduction and journey map">
   <div class="opening">
-    <ng-content select="[opening-intro]" />
+    <div class="opening-intro">
+      <div class="greeting">
+        <span class="eyebrow">{{ identity.role }}</span>
+        <h1 id="intro-title">
+          Hi, I’m <a routerLink="/journey">Shashi<span>.</span></a>
+        </h1>
+        <span class="location"><i aria-hidden="true"></i>Mumbai, India</span>
+      </div>
+      <div class="intro-body">
+        <p>{{ identity.intro }}</p>
+        <div class="intro-actions">
+          <a class="button primary" routerLink="/work">View work →</a
+          ><a class="text-link" [href]="identity.resume" target="_blank" rel="noopener noreferrer"
+            >View résumé ↗</a
+          >
+        </div>
+      </div>
+    </div>
     <div class="map-stage" (mouseleave)="leave()">
       <svg
         viewBox="0 0 1200 690"
@@ -72,7 +89,6 @@
         }
       </div>
     </div>
-    <ng-content select="[opening-nav]" />
   </div>
   <div class="map-caption">
     <a
@@ -100,23 +116,12 @@
           <p>{{ line }}</p>
         }
         @if (p.experience) {
-          <a class="text-link" (click)="dismiss()" [href]="'#' + p.experience">View experience ↗</a>
+          <a class="text-link" (click)="dismiss()" routerLink="/work" [fragment]="p.experience"
+            >View experience ↗</a
+          >
         }
       </div>
       <button class="close" (click)="close()" aria-label="Close location details">×</button>
     </section>
   }
-  <details class="education" open>
-    <summary>Education along the way <span>2016 — 2024</span></summary>
-    <div class="education-grid">
-      @for (p of places.slice(1, 3); track p.id) {
-        <div>
-          <h3>{{ p.city }}</h3>
-          @for (line of p.lines; track line) {
-            <p>{{ line }}</p>
-          }
-        </div>
-      }
-    </div>
-  </details>
 </section>
