@@ -11,7 +11,7 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { identity, journey, Place } from './data/portfolio.data';
-import { indiaPath, projection } from './data/map.generated';
+import { boundaryPath, indiaPath, projection } from './data/map.generated';
 @Component({
   selector: 'app-journey',
   imports: [RouterLink],
@@ -21,6 +21,8 @@ import { indiaPath, projection } from './data/map.generated';
 export class Journey {
   readonly identity = identity;
   readonly path = indiaPath;
+  readonly boundaries = boundaryPath;
+  readonly frame = { x: 110, y: 20, width: 1000, height: 670 };
   readonly places = journey.map((p) => ({ ...p, point: this.project(p.coordinates) }));
   readonly selected = signal<string | null>(null);
   readonly preview = signal<string | null>(null);
@@ -30,6 +32,7 @@ export class Journey {
   readonly route = this.places.map((p) => p.point.join(',')).join(' ');
   private trigger?: HTMLElement;
   private suppressed = false;
+  private closeTimer?: ReturnType<typeof setTimeout>;
   private readonly popup = viewChild<ElementRef<HTMLElement>>('popup');
   private focusOnOpen = false;
   private readonly main = inject(ElementRef<HTMLElement>).nativeElement.closest('main');
@@ -37,7 +40,10 @@ export class Journey {
   constructor() {
     const reposition = () => this.positionPopup();
     this.main?.addEventListener('scroll', reposition, { passive: true });
-    inject(DestroyRef).onDestroy(() => this.main?.removeEventListener('scroll', reposition));
+    inject(DestroyRef).onDestroy(() => {
+      this.main?.removeEventListener('scroll', reposition);
+      this.keepPreview();
+    });
 
     afterRenderEffect(() => {
       this.active();
@@ -97,6 +103,7 @@ export class Journey {
   }
 
   dismiss() {
+    this.keepPreview();
     this.focusOnOpen = false;
     this.selected.set(null);
     this.preview.set(null);
@@ -110,6 +117,7 @@ export class Journey {
     ];
   }
   peek(place: Place, event: Event) {
+    this.keepPreview();
     if (!this.suppressed && !this.selected()) {
       this.preview.set(place.id);
       this.trigger = event.currentTarget as HTMLElement;
@@ -129,6 +137,17 @@ export class Journey {
   }
   leave() {
     this.suppressed = false;
+    this.keepPreview();
+    if (!this.preview()) return;
+    // Allow the pointer to cross the gap between the label and its popup.
+    this.closeTimer = setTimeout(() => {
+      const panel = this.popup()?.nativeElement;
+      if (panel?.matches(':hover, :focus-within') || this.trigger?.matches(':hover, :focus-visible')) return;
+      this.preview.set(null);
+    }, 180);
+  }
+  keepPreview() {
+    clearTimeout(this.closeTimer);
   }
   @HostListener('document:keydown.escape') close() {
     if (!this.active()) return;

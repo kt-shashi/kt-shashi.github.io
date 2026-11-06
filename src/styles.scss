@@ -5,6 +5,7 @@
   font-display: swap;
 }
 :root {
+  --cursor-diameter: 120px;
   --navy: #101c30;
   --cream: #f5ebd8;
   --coral: #f47c6a;
@@ -19,6 +20,7 @@
   box-sizing: border-box;
 }
 html {
+  font-size: clamp(112.5%, calc(100% + 0.3vw), 125%);
   scroll-behavior: smooth;
   scroll-padding-top: 100px;
 }
@@ -27,7 +29,7 @@ body {
   background: var(--navy);
   color: var(--cream);
   font-family: var(--font);
-  font-size: 16px;
+  font-size: 1rem;
   line-height: 1.6;
 }
 button,
@@ -73,7 +75,7 @@ h3 {
 h2,
 .section-heading h1,
 .about h1 {
-  font-size: clamp(2rem, 4vw, 3.6rem);
+  font-size: clamp(2rem, 5vw, 3.6rem);
   margin: 0.8rem 0 0;
 }
 h3 {

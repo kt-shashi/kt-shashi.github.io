@@ -1,6 +1,7 @@
 export interface Place {
   id: string;
   city: string;
+  memoryPhoto: string;
   state: string;
   label: string;
   coordinates: [number, number];
@@ -67,6 +68,7 @@ function educationLines(city: Qualification['city']): string[] {
 export const journey: Place[] = [
   {
     id: 'gorakhpur',
+    memoryPhoto: 'images/gorakhur.jpeg',
     city: 'Gorakhpur',
     state: 'Uttar Pradesh',
     label: 'Roots',
@@ -76,6 +78,7 @@ export const journey: Place[] = [
   },
   {
     id: 'kolkata',
+    memoryPhoto: 'images/kolkata.jpeg',
     city: 'Kolkata',
     state: 'West Bengal',
     label: 'School years & BCA',
@@ -85,6 +88,7 @@ export const journey: Place[] = [
   },
   {
     id: 'jamshedpur',
+    memoryPhoto: 'images/jamshedpur.jpeg',
     city: 'Jamshedpur',
     state: 'Jharkhand',
     label: 'MCA at NIT',
@@ -94,6 +98,7 @@ export const journey: Place[] = [
   },
   {
     id: 'pune',
+    memoryPhoto: 'images/pune.jpeg',
     city: 'Pune',
     state: 'Maharashtra',
     label: 'Android at TCS',
@@ -108,6 +113,7 @@ export const journey: Place[] = [
   },
   {
     id: 'mumbai',
+    memoryPhoto: 'images/mumbai.jpeg',
     city: 'Mumbai',
     state: 'Maharashtra',
     label: 'Full-stack at TCS',

@@ -3,8 +3,9 @@
     <div class="opening-intro">
       <div class="greeting">
         <span class="eyebrow">{{ identity.role }}</span>
-        <h1 id="intro-title">
+        <h1 id="intro-title" data-portrait-heading>
           Hi, I’m <a routerLink="/journey">Shashi<span>.</span></a>
+          <img class="greeting-portrait" src="images/shashi-kant.jpeg" alt="" />
         </h1>
         <span class="location"><i aria-hidden="true"></i>Mumbai, India</span>
       </div>
@@ -18,11 +19,11 @@
         </div>
       </div>
     </div>
-    <div class="map-stage" (mouseleave)="leave()">
+    <div class="map-stage">
       <svg
-        viewBox="0 0 1200 690"
+        [attr.viewBox]="frame.x + ' ' + frame.y + ' ' + frame.width + ' ' + frame.height"
         role="img"
-        aria-label="Map of northern and central India showing Gorakhpur, Kolkata, Jamshedpur, Pune and Mumbai. Use the location buttons to explore."
+        aria-label="Map of northern and central India with dotted state and union territory boundaries. Explore Gorakhpur, Kolkata, Jamshedpur, Pune and Mumbai using the location buttons."
       >
         <defs>
           <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
@@ -33,6 +34,9 @@
         <rect width="1200" height="690" fill="url(#grid)" />
         <g clip-path="url(#land-clip)">
           <path [attr.d]="path" fill="#192a40" stroke="#667181" stroke-width="1.3" />
+          <path [attr.d]="boundaries" fill="none" stroke="#9aa6b4" stroke-opacity=".78"
+            stroke-width="1.45" stroke-dasharray=".1 3.6" stroke-linecap="round"
+            vector-effect="non-scaling-stroke" pointer-events="none" />
         </g>
         <polyline
           [attr.points]="route"
@@ -72,8 +76,8 @@
           <button
             class="map-label"
             [class.selected]="active()?.id === p.id"
-            [style.left.%]="(p.point[0] + p.offset[0]) / 12"
-            [style.top.%]="(p.point[1] + p.offset[1]) / 6.9"
+            [style.left.%]="100 * (p.point[0] + p.offset[0] - frame.x) / frame.width"
+            [style.top.%]="100 * (p.point[1] + p.offset[1] - frame.y) / frame.height"
             (mouseenter)="peek(p, $event)"
             (focus)="peek(p, $event)"
             (mouseleave)="leave()"
@@ -101,17 +105,21 @@
   @if (active(); as p) {
     <section
       #popup
+      (mouseenter)="keepPreview()"
+      (mouseleave)="leave()"
+      (focusout)="leave()"
       id="place-details"
       class="place-details"
       role="dialog"
       tabindex="-1"
       aria-labelledby="place-title"
     >
-      <div>
+      <img class="memory-photo" data-cursor-exclude draggable="false" [src]="p.memoryPhoto" [alt]="'A memory from ' + p.city" />
+      <div class="place-heading">
         <span class="eyebrow">{{ p.state }} / {{ p.label }}</span>
         <h3 id="place-title">{{ p.city }}</h3>
       </div>
-      <div>
+      <div class="place-copy">
         @for (line of p.lines; track line) {
           <p>{{ line }}</p>
         }

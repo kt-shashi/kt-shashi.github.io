@@ -10,6 +10,8 @@ https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_10m_admin
 
 The retained feature is `tools/india.geojson` (`ADM0_A3 = IND`), preserving the dataset's default de facto boundary convention. Natural Earth data is public domain: https://www.naturalearthdata.com/about/terms-of-use/. A map credit is included even though attribution is optional. The retained geometry is the reproducible source snapshot; the upstream master URL is mutable.
 
+The dotted internal boundaries come from Natural Earth's public-domain [1:10m Admin 1 boundary lines](https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_10m_admin_1_states_provinces_lines.geojson). The local snapshot in `tools/india-admin1-lines.geojson` includes the lines with `ADM0_A3 = IND`, simplified with a Douglas–Peucker tolerance of 0.015 degrees for this display scale. The generator uses the same projection for the national outline and the subdivision lines.
+
 The five coordinates were extracted by exact city name from the Natural Earth 1:10m populated places dataset, downloaded on the same date:
 https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_10m_populated_places.geojson
 
