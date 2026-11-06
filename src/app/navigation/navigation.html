@@ -1,0 +1,11 @@
+<nav aria-label="Main navigation">
+  <a routerLink="/journey" class="brand">{{ identity.name }}<span>.</span></a>
+  @for (section of sections; track section.path) {
+    <a [routerLink]="['/', section.path]" routerLinkActive="active" ariaCurrentWhenActive="page">{{
+      section.label
+    }}</a>
+  }
+  <a class="resume" [href]="identity.resume" target="_blank" rel="noopener noreferrer"
+    >View résumé ↗</a
+  >
+</nav>

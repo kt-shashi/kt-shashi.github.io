@@ -1,0 +1,19 @@
+<section id="skills" class="section-shell content-section" aria-labelledby="skills-title">
+  <div class="section-heading">
+    <div>
+      <span class="eyebrow">04 / TOOLKIT</span>
+      <h1 id="skills-title">What I build with.</h1>
+    </div>
+  </div>
+  <div class="core-skills">
+    <span>Java</span><span>Spring Boot</span><span>Angular</span><span>SQL</span>
+  </div>
+  <div class="skills-grid">
+    @for (group of skills; track group.name) {
+      <div>
+        <h3>{{ group.name }}</h3>
+        <p>{{ group.items.join(' · ') }}</p>
+      </div>
+    }
+  </div>
+</section>

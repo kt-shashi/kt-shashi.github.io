@@ -17,6 +17,53 @@ export const identity = {
   email: 'shkt03@gmail.com',
   resume: 'https://drive.google.com/file/d/1gz7rl4VClDcXqsMiAT00YxTuBKIVeGXk/view?usp=sharing',
 };
+interface Qualification {
+  city: 'Kolkata' | 'Jamshedpur';
+  institution: string;
+  qualification: string;
+  dates: string;
+  result: string;
+}
+
+export const education: Qualification[] = [
+  {
+    city: 'Kolkata',
+    institution: 'St. Joseph’s College',
+    qualification: 'Class 10',
+    dates: '2016',
+    result: '89%',
+  },
+  {
+    city: 'Kolkata',
+    institution: 'St. Lawrence High School, Kolkata',
+    qualification: 'Class 12',
+    dates: '2018',
+    result: '69%',
+  },
+  {
+    city: 'Kolkata',
+    institution: 'George College, Kolkata',
+    qualification: 'BCA',
+    dates: '2018–2021',
+    result: '92%',
+  },
+  {
+    city: 'Jamshedpur',
+    institution: 'National Institute of Technology, Jamshedpur',
+    qualification: 'MCA',
+    dates: '2021–2024',
+    result: 'CGPA: 8.31',
+  },
+];
+
+function educationLines(city: Qualification['city']): string[] {
+  return education
+    .filter((entry) => entry.city === city)
+    .map(
+      (entry) => `${entry.institution} — ${entry.qualification}, ${entry.dates} — ${entry.result}`,
+    );
+}
+
 export const journey: Place[] = [
   {
     id: 'gorakhpur',
@@ -34,11 +81,7 @@ export const journey: Place[] = [
     label: 'School years & BCA',
     coordinates: [88.369126, 22.569579],
     offset: [95, -25],
-    lines: [
-      'St. Joseph’s College — Class 10, 2016 — 89%',
-      'St. Lawrence High School, Kolkata — Class 12, 2018 — 69%',
-      'George College, Kolkata — BCA, 2018–2021 — 92%',
-    ],
+    lines: educationLines('Kolkata'),
   },
   {
     id: 'jamshedpur',
@@ -47,7 +90,7 @@ export const journey: Place[] = [
     label: 'MCA at NIT',
     coordinates: [86.195573, 22.789481],
     offset: [-85, 65],
-    lines: ['National Institute of Technology, Jamshedpur', 'MCA, 2021–2024 · CGPA: 8.31'],
+    lines: educationLines('Jamshedpur'),
   },
   {
     id: 'pune',

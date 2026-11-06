@@ -1,0 +1,35 @@
+.core-skills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px 45px;
+  border-block: 1px solid var(--line);
+  padding: 30px 0;
+  font-size: clamp(1.5rem, 3.2vw, 2.8rem);
+  letter-spacing: -0.04em;
+}
+.core-skills span:first-child {
+  color: var(--coral);
+}
+.skills-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 35px;
+  margin-top: 40px;
+}
+.skills-grid h3 {
+  font-size: 0.85rem;
+  letter-spacing: 0;
+}
+.skills-grid p {
+  font-size: 0.8rem;
+  line-height: 1.9;
+}
+@media (max-width: 700px) {
+  .skills-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+  }
+  .skills-grid > div:last-child {
+    grid-column: 1/-1;
+  }
+}

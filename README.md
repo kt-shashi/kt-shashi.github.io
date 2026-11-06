@@ -26,8 +26,11 @@ npm run build
 ## Editing
 
 - `src/app/data/portfolio.data.ts`: identity, supplied URLs, work, projects, skills, education, hobbies, city coordinates and label offsets.
-- `src/app/app.html` and `app.scss`: page sections and responsive composition.
-- `src/app/journey.*`: map controls, selection, detail panel and education list.
+- `src/app/app.routes.ts`: section paths, navigation labels, page titles and lazy-loaded components. Journey is the default. Hash URLs such as `/#/projects` support refresh and browser history on static hosts without rewrite rules.
+- `src/app/app.*`: the shared shell, scrollable main panel, and focus handling when a page changes.
+- `src/app/navigation/`: persistent right navigation on desktop and compact top navigation on smaller screens.
+- `src/app/pages/`: standalone Work, Projects, Skills, Education, About and Contact components, each with its own template and styles.
+- `src/app/journey.*`: map controls, selection and city popups. Kolkata and Jamshedpur share their qualification data with the Education page.
 - `src/styles.scss`: colors, typography, spacing and reduced-motion rules.
 - `src/index.html`: professional title and description. Keep metadata aligned with content edits.
 
@@ -35,6 +38,4 @@ Map coordinates are longitude/latitude. Never move city coordinates to resolve l
 
 ## Validation status and remaining work
 
-The production build and four focused unit tests passed during initial implementation. The page subsequently loaded successfully in the in-app browser after a stalled development server was replaced. The production build currently reports a component stylesheet size warning (about 6 KB versus the 4 KB warning threshold).
-
-A complete desktop/tablet/mobile visual and accessibility audit remains pending. Details currently appear beneath the map on all screen sizes; mobile uses large location-list controls rather than interactive SVG dots. Desktop floating-panel behavior and the full interaction matrix in PLAN.md remain follow-up work. No end-to-end runner is configured, and no full browser-console, touch-device, or screen-reader audit is claimed.
+The unit tests cover section switching, the current navigation link, map controls and links from city popups to the matching Work entry. No end-to-end runner is configured. For manual checks, start at Journey, switch sections from the persistent navigation, follow a city’s experience link, then try Back and refresh on that entry.

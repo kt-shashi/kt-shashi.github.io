@@ -1,0 +1,22 @@
+<section id="about" class="section-shell content-section about" aria-labelledby="about-title">
+  <div>
+    <span class="eyebrow">05 / BEYOND THE CODE</span>
+    <h1 id="about-title">A little more<br />about Shashi.</h1>
+  </div>
+  <div>
+    <p class="about-copy">{{ about }}</p>
+    <div class="hobbies">
+      @for (hobby of hobbies; track hobby.name; let i = $index) {
+        <details #disclosure (toggle)="i === 0 && gaming.set(disclosure.open)">
+          <summary>
+            <span>0{{ i + 1 }}</span
+            >{{ hobby.name }}<span aria-hidden="true">+</span>
+          </summary>
+          @if (i !== 0 || gaming()) {
+            <p>{{ hobby.detail }}</p>
+          }
+        </details>
+      }
+    </div>
+  </div>
+</section>
