@@ -62,8 +62,7 @@ svg {
 }
 .map-caption {
   display: flex;
-  justify-content: space-between;
-  gap: 1rem;
+  justify-content: flex-end;
   color: var(--muted);
   font-size: 0.62rem;
   letter-spacing: 0.1em;
