@@ -1,0 +1,23 @@
+<div class="preview" [class.portrait-series]="screenshots().length > 1">
+  @for (shot of visible(); track shot.src) {
+    <img [src]="shot.src" [alt]="shot.alt" data-cursor-exclude draggable="false" />
+  }
+</div>
+@if (pages() > 1) {
+  <div class="controls">
+    <button
+      type="button"
+      (click)="step(-1)"
+      [attr.aria-label]="'Previous ' + name() + ' screenshots'"
+    >
+      ←
+    </button>
+    <span role="status"
+      >Screenshots {{ page() * 2 + 1 }}–{{ page() * 2 + visible().length }} of
+      {{ screenshots().length }}</span
+    >
+    <button type="button" (click)="step(1)" [attr.aria-label]="'Next ' + name() + ' screenshots'">
+      →
+    </button>
+  </div>
+}

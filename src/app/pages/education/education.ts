@@ -7,5 +7,5 @@ import { education } from '../../data/portfolio.data';
   styleUrl: './education.scss',
 })
 export class EducationPage {
-  readonly qualifications = education;
+  readonly qualifications = [...education].reverse();
 }

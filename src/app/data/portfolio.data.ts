@@ -183,12 +183,23 @@ export const experience: Experience[] = [
   },
 ];
 export const training = '29 August 2024–8 September 2024';
+export interface ProjectScreenshot {
+  src: string;
+  alt: string;
+}
+
 export const projects = [
   {
     name: 'NewsDozz',
     tagline: 'Get your daily dose of news.',
-    kind: 'ANDROID APPLICATION',
-    visual: 'N.',
+    screenshots: [
+      { src: 'images/newsdozz/1.jpg', alt: 'NewsDozz welcome screen with its flame logo' },
+      { src: 'images/newsdozz/2.jpg', alt: 'Breaking news feed with short article summaries' },
+      { src: 'images/newsdozz/3.jpg', alt: 'Technology selected in the news category tabs' },
+      { src: 'images/newsdozz/4.jpg', alt: 'Language selection dialog over the news feed' },
+      { src: 'images/newsdozz/5.jpg', alt: 'Swipe gesture for bookmarking an article' },
+      { src: 'images/newsdozz/6.jpg', alt: 'Bookmarks screen displaying saved news articles' },
+    ] satisfies ProjectScreenshot[],
     description:
       'An Android news delivery application that presents articles in concise, one-line summaries using the GNews API.',
     features: [
@@ -212,8 +223,9 @@ export const projects = [
   {
     name: 'WordWise',
     tagline: 'Your online wordbook.',
-    kind: 'WEB APPLICATION',
-    visual: 'Aa',
+    screenshots: [
+      { src: 'images/wordwise/1.png', alt: 'WordWise dictionary lookup interface' },
+    ] satisfies ProjectScreenshot[],
     description: 'A responsive web application that retrieves word details using a dictionary API.',
     features: [
       'Word lookup using a dictionary API',
@@ -244,7 +256,6 @@ export const skills = [
 export const about =
   'I’m Shashi, a full-stack developer at TCS in Mumbai. My work now connects Angular interfaces with Spring Boot APIs, building on earlier experience in Android development. From school and a BCA in Kolkata to an MCA at NIT Jamshedpur, then work in Pune and Mumbai, each place has been part of that journey. Away from software, I make time for games, badminton, and Rubik’s Cubes.';
 export const hobbies = [
-  { name: 'Playing video games', detail: 'In-game, I go by DEVTA.', image: 'images/gaming.jpeg' },
   {
     name: 'Badminton',
     detail: 'Away from the screen, I enjoy playing badminton.',
@@ -254,5 +265,11 @@ export const hobbies = [
     name: 'Solving Rubik’s Cubes',
     detail: 'Another kind of problem-solving I enjoy: solving Rubik’s Cubes.',
     image: 'images/rubiks-cube.jpeg',
+  },
+  {
+    name: 'Playing video games',
+    detail: 'In-game, I go by DEVTA.',
+    image: 'images/gaming.jpeg',
+    expandable: true,
   },
 ];
