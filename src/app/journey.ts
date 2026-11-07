@@ -9,53 +9,24 @@ import {
   inject,
   DestroyRef,
   afterNextRender,
-  input,
 } from '@angular/core';
-import {
-  NavigationCancel,
-  NavigationError,
-  NavigationSkipped,
-  Router,
-  RouterLink,
-} from '@angular/router';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { RouterLink } from '@angular/router';
 import { identity, journey, Place } from './data/portfolio.data';
-import { boundaryPath, indiaPath, projection, statePaths } from './data/map.generated';
-import { MapDestination, MapTransition } from './map-transition';
-
-const transitionRegions = {
-  work: { name: 'Maharashtra', location: 'Mumbai · Pune', city: null },
-  projects: { name: 'Jharkhand', location: 'Jamshedpur', city: 'jamshedpur' },
-  education: { name: 'West Bengal', location: 'Kolkata', city: 'kolkata' },
-} as const;
+import { indiaFrame, project } from './data/map-views';
+import { MapGeography } from './map-geography';
+import { MapTransition } from './map-transition';
 
 @Component({
   selector: 'app-journey',
-  imports: [RouterLink],
+  imports: [RouterLink, MapGeography],
   templateUrl: './journey.html',
   styleUrls: ['./journey.scss', './journey-intro.scss'],
 })
 export class Journey {
-  readonly transitionId = input<number | null>(null);
-  readonly transitionDestination = input<MapDestination>('work');
   readonly identity = identity;
-  readonly path = indiaPath;
-  readonly boundaries = boundaryPath;
-  readonly frame = { x: 110, y: 20, width: 1000, height: 670 };
+  readonly frame = indiaFrame;
   readonly camera = signal(this.frame);
-  readonly departing = signal(false);
-  readonly mapFading = signal(false);
-  private readonly zoomDestination = signal<MapDestination | null>(null);
-  readonly highlightedRegion = computed(() => {
-    const destination = this.zoomDestination();
-    if (destination === null) return null;
-    const region = transitionRegions[destination];
-    return {
-      ...region,
-      path: statePaths[region.name],
-    };
-  });
-  readonly places = journey.map((p) => ({ ...p, point: this.project(p.coordinates) }));
+  readonly places = journey.map((p) => ({ ...p, point: project(p.coordinates) }));
   readonly introPlaying = signal(false);
   readonly introContentVisible = signal(true);
   readonly revealedCities = signal(this.places.length);
@@ -73,9 +44,6 @@ export class Journey {
   private readonly popup = viewChild<ElementRef<HTMLElement>>('popup');
   private focusOnOpen = false;
   private readonly main = inject(ElementRef<HTMLElement>).nativeElement.closest('main');
-  private transitionFrame = 0;
-  private transitionPromise?: Promise<boolean>;
-  private resolveTransition?: (proceed: boolean) => void;
   private introFrame = 0;
   private removeIntroMotionListener?: () => void;
 
@@ -83,32 +51,14 @@ export class Journey {
     const destroyRef = inject(DestroyRef);
     const transitions = inject(MapTransition);
     afterNextRender(() => {
-      const id = this.transitionId();
-      if (id !== null) {
-        Promise.resolve(this.transitionTo(this.transitionDestination())).then((proceed) => transitions.complete(id, proceed));
-      } else {
-        destroyRef.onDestroy(transitions.registerHome((destination) => this.transitionTo(destination)));
-        if (transitions.claimJourneyIntro()) this.startIntro();
-      }
+      if (transitions.claimJourneyIntro() && !transitions.scene()) this.startIntro();
     });
-    inject(Router).events
-      .pipe(takeUntilDestroyed())
-      .subscribe((event) => {
-        if (
-          event instanceof NavigationCancel ||
-          event instanceof NavigationError ||
-          event instanceof NavigationSkipped
-        ) {
-          this.cancelMapTransition();
-        }
-      });
     const reposition = () => this.positionPopup();
     this.main?.addEventListener('scroll', reposition, { passive: true });
-    inject(DestroyRef).onDestroy(() => {
+    destroyRef.onDestroy(() => {
       this.main?.removeEventListener('scroll', reposition);
       this.keepPreview();
       this.finishIntro();
-      this.cancelMapTransition();
     });
 
     afterRenderEffect(() => {
@@ -173,7 +123,7 @@ export class Journey {
     this.introFrame = requestAnimationFrame(animate);
   }
 
-  private finishIntro(resetCamera = true) {
+  private finishIntro() {
     cancelAnimationFrame(this.introFrame);
     this.removeIntroMotionListener?.();
     this.removeIntroMotionListener = undefined;
@@ -181,60 +131,6 @@ export class Journey {
     this.introContentVisible.set(true);
     this.revealedCities.set(this.places.length);
     this.introRouteProgress.set(1);
-    if (resetCamera) this.camera.set(this.frame);
-  }
-
-  transitionTo(destination: MapDestination): boolean | Promise<boolean> {
-    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches !== false) return true;
-    if (this.transitionPromise) return this.transitionPromise;
-    this.finishIntro(false);
-    this.dismiss();
-    this.zoomDestination.set(destination);
-    this.departing.set(true);
-    this.transitionPromise = new Promise<boolean>((resolve) => {
-      this.resolveTransition = resolve;
-    });
-    let started: number | undefined;
-    const start = this.camera();
-    const city = transitionRegions[destination].city;
-    const target = city ? this.places.find((place) => place.id === city)!.point : [330, 566];
-    const middle = { x: 310, y: target[1] - 201, width: 600, height: 402 };
-    const end = { x: target[0] - 100, y: target[1] - 67, width: 200, height: 134 };
-    const animate = (time: number) => {
-      started ??= time;
-      const elapsed = time - started;
-      const progress = Math.min(elapsed / 1500, 1);
-      const firstLeg = progress < 0.55;
-      const from = firstLeg ? start : middle;
-      const to = firstLeg ? middle : end;
-      const legProgress = firstLeg ? progress / 0.55 : (progress - 0.55) / 0.45;
-      const eased = legProgress * legProgress * (3 - 2 * legProgress);
-      this.camera.set({
-        x: from.x + (to.x - from.x) * eased,
-        y: from.y + (to.y - from.y) * eased,
-        width: from.width + (to.width - from.width) * eased,
-        height: from.height + (to.height - from.height) * eased,
-      });
-      this.mapFading.set(progress === 1);
-      if (elapsed >= 1850) {
-        this.resolveTransition?.(true);
-        this.resolveTransition = undefined;
-      } else {
-        this.transitionFrame = requestAnimationFrame(animate);
-      }
-    };
-    this.transitionFrame = requestAnimationFrame(animate);
-    return this.transitionPromise;
-  }
-
-  cancelMapTransition() {
-    cancelAnimationFrame(this.transitionFrame);
-    this.resolveTransition?.(false);
-    this.resolveTransition = undefined;
-    this.transitionPromise = undefined;
-    this.departing.set(false);
-    this.mapFading.set(false);
-    this.zoomDestination.set(null);
     this.camera.set(this.frame);
   }
 
@@ -287,14 +183,6 @@ export class Journey {
     this.focusOnOpen = false;
     this.selected.set(null);
     this.preview.set(null);
-  }
-  project([lon, lat]: [number, number]): [number, number] {
-    const r = Math.PI / 180;
-    const m = (l: number) => Math.log(Math.tan(Math.PI / 4 + (l * r) / 2));
-    return [
-      projection.translate[0] + (lon - projection.center[0]) * r * projection.scale,
-      projection.translate[1] - (m(lat) - m(projection.center[1])) * projection.scale,
-    ];
   }
   peek(place: Place, event: Event) {
     this.keepPreview();

@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { WorkMap } from './work-map';
 import { experience, training } from '../../data/portfolio.data';
+import { SectionMap } from '../../section-map';
 
 @Component({
   selector: 'app-work',
-  imports: [WorkMap],
+  imports: [SectionMap],
   templateUrl: './work.html',
   styleUrl: './work.scss',
 })

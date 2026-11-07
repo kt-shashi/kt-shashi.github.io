@@ -81,18 +81,4 @@ describe('Journey landing animation', () => {
     expect(fixture.componentInstance.camera()).toEqual(fixture.componentInstance.frame);
     fixture.destroy();
   });
-
-  it('hands the current camera to a section transition when navigation interrupts the splash', async () => {
-    const fixture = await openJourney();
-    const component = fixture.componentInstance;
-    const camera = component.camera();
-    const navigation = component.transitionTo('education');
-    expect(component.introPlaying()).toBe(false);
-    expect(component.departing()).toBe(true);
-    expect(component.camera()).toEqual(camera);
-    nextFrame(0);
-    nextFrame(1850);
-    await expect(navigation).resolves.toBe(true);
-    fixture.destroy();
-  });
 });

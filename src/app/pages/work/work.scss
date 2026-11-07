@@ -1,21 +1,8 @@
 .work-intro {
-  display: grid;
-  grid-template-columns: minmax(0, 1.5fr) minmax(12rem, 1fr);
-  align-items: center;
-  gap: 1rem;
   margin-bottom: 1.5rem;
 }
 .work-intro p {
   margin-top: 1rem;
-}
-@media (max-width: 600px) {
-  .work-intro {
-    grid-template-columns: 1fr;
-  }
-  .work-intro app-work-map {
-    width: min(100%, 20rem);
-    justify-self: center;
-  }
 }
 
 .employer-heading {

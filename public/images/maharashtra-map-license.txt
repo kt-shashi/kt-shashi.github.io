@@ -1,5 +1,7 @@
-Maharashtra district boundaries adapted from Akula Guru Datta, INDIAN-SHAPEFILES.
+Maharashtra, Jharkhand and West Bengal district boundaries adapted from Akula Guru Datta, INDIAN-SHAPEFILES.
 https://github.com/datta07/INDIAN-SHAPEFILES/blob/master/STATES/MAHARASHTRA/MAHARASHTRA_DISTRICTS.geojson
+https://github.com/datta07/INDIAN-SHAPEFILES/blob/master/STATES/JHARKHAND/JHARKHAND_DISTRICTS.geojson
+https://github.com/datta07/INDIAN-SHAPEFILES/blob/master/STATES/WEST%20BENGAL/WEST%20BENGAL_DISTRICTS.geojson
 
 MIT License
 

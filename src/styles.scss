@@ -169,6 +169,29 @@ section,
 article {
   scroll-margin-top: 100px;
 }
+.section-heading.map-heading {
+  display: grid;
+  grid-template-columns: minmax(0, 1.5fr) minmax(10rem, 1fr);
+  align-items: center;
+  gap: 1rem;
+}
+.map-heading app-section-map {
+  width: 100%;
+  max-width: 23rem;
+  justify-self: end;
+}
+.map-in-flight [data-map-anchor] {
+  visibility: hidden;
+}
+@media (max-width: 600px) {
+  .section-heading.map-heading {
+    grid-template-columns: 1fr;
+  }
+  .map-heading app-section-map {
+    width: min(100%, 17rem);
+    justify-self: end;
+  }
+}
 @media (max-width: 700px) {
   .section-heading {
     align-items: start;
