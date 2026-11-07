@@ -1,4 +1,4 @@
-<section [id]="transitionId() === null ? 'journey' : null" class="journey section-shell" [class.departing]="departing() || transitionId() !== null" [class.intro-playing]="introPlaying()" [class.intro-content-visible]="introContentVisible()" aria-label="Introduction and journey map">
+<section id="journey" class="journey section-shell" [class.intro-playing]="introPlaying()" [class.intro-content-visible]="introContentVisible()" aria-label="Introduction and journey map">
   <div class="opening">
     <div class="opening-intro">
       <div class="greeting">
@@ -19,7 +19,7 @@
         </div>
       </div>
     </div>
-    <div class="map-stage" [class.fading]="mapFading()">
+    <div class="map-stage" data-map-anchor>
       <svg
         [attr.viewBox]="camera().x + ' ' + camera().y + ' ' + camera().width + ' ' + camera().height"
         role="img"
@@ -32,23 +32,13 @@
                 stroke-dasharray="1" [attr.stroke-dashoffset]="1 - introRouteProgress()" />
             </mask>
           }
-          <pattern [id]="transitionId() === null ? 'grid' : 'transition-grid'" width="60" height="60" patternUnits="userSpaceOnUse">
+          <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
             <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#f5ebd8" stroke-opacity=".035" />
           </pattern>
-          <clipPath [id]="transitionId() === null ? 'land-clip' : 'transition-land-clip'"><rect width="1200" height="660" /></clipPath>
+          <clipPath id="land-clip"><rect width="1200" height="660" /></clipPath>
         </defs>
-        <rect width="1200" height="690" [attr.fill]="transitionId() === null ? 'url(#grid)' : 'url(#transition-grid)'" />
-        <g [attr.clip-path]="transitionId() === null ? 'url(#land-clip)' : 'url(#transition-land-clip)'">
-          <path [attr.d]="path" fill="#192a40" stroke="#667181" stroke-width="1.3" />
-          <path [attr.d]="boundaries" fill="none" stroke="#9aa6b4" stroke-opacity=".78"
-            stroke-width="1.45" stroke-dasharray=".1 3.6" stroke-linecap="round"
-            vector-effect="non-scaling-stroke" pointer-events="none" />
-          @if (highlightedRegion(); as region) {
-            <path class="region-outline" [attr.d]="region.path" fill="var(--coral)" fill-opacity=".1"
-              stroke="var(--coral)" stroke-width="2.5" stroke-linejoin="round"
-              vector-effect="non-scaling-stroke" />
-          }
-        </g>
+        <rect width="1200" height="690" fill="url(#grid)" />
+        <g app-map-geography clip-path="url(#land-clip)" />
         <polyline
           [attr.points]="route"
           [attr.mask]="introPlaying() ? 'url(#intro-route-reveal)' : null"
@@ -84,12 +74,6 @@
           INDIA
         </text>
       </svg>
-      @if (highlightedRegion(); as region) {
-        <div class="map-label transition-region">
-          <strong>{{ region.name }}</strong>
-          <small>{{ region.location }}</small>
-        </div>
-      }
       <div class="map-labels" #labels>
         @for (p of places; track p.id) {
           <button

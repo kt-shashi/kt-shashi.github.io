@@ -1,0 +1,43 @@
+@if (thumbnail() < 1) {
+  <svg [attr.viewBox]="viewBox()" [style.opacity]="1 - thumbnail()" aria-hidden="true">
+    <g app-map-geography />
+    @if (detail(); as region) {
+      <g [attr.opacity]="detailOpacity()">
+        <path
+          class="state-outline"
+          [attr.d]="region.outline"
+          fill="var(--coral)"
+          fill-opacity=".08"
+          stroke="var(--coral)"
+          stroke-width="1.5"
+          stroke-linejoin="round"
+          vector-effect="non-scaling-stroke"
+        />
+        <g [attr.opacity]="pinOpacity()">
+          @for (pin of region.pins; track pin.id) {
+            <circle
+              [attr.cx]="pin.x"
+              [attr.cy]="pin.y"
+              [attr.r]="frame().width * 0.009"
+              fill="var(--coral)"
+              stroke="var(--navy)"
+              stroke-width="1.5"
+              vector-effect="non-scaling-stroke"
+            />
+            <text
+              [attr.x]="pin.x"
+              [attr.y]="pin.y - frame().width * 0.028"
+              [attr.font-size]="frame().width * 0.046"
+              text-anchor="middle"
+            >
+              {{ pin.name }}
+            </text>
+          }
+        </g>
+      </g>
+    }
+  </svg>
+}
+@if (thumbnailImage(); as image) {
+  <img [src]="image" [style.opacity]="thumbnail()" alt="" aria-hidden="true" />
+}

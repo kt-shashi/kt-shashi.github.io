@@ -45,9 +45,7 @@ export const routes: Routes = [
     path,
     loadComponent,
     title: label + ' · Shashi Kant — Full-Stack Developer',
-    ...(path === 'work' || path === 'projects' || path === 'education'
-      ? { canActivate: [mapTransitionGuard(path)] }
-      : {}),
+    canActivate: [mapTransitionGuard(path)],
   })),
   { path: '**', redirectTo: 'journey' },
 ];

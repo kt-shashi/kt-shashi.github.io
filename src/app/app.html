@@ -1,13 +1,22 @@
 <button class="skip" (click)="focusContent()">Skip to content</button>
 <app-navigation />
-<main #panel id="main" tabindex="-1">
+<main #panel id="main" tabindex="-1" [class.map-in-flight]="mapTransition.scene()?.hideAnchor">
   <div class="page"><router-outlet /></div>
 </main>
-@if (mapTransition.overlay(); as transition) {
-  <div class="map-transition" aria-hidden="true" inert>
-    <div class="transition-page">
-      <app-journey [transitionId]="transition.id" [transitionDestination]="transition.destination" />
-    </div>
+@if (mapTransition.scene(); as scene) {
+  <div class="map-transition" aria-hidden="true">
+    <div class="map-backdrop" [style.opacity]="scene.backdrop"></div>
+    <app-section-map
+      [region]="scene.region"
+      [camera]="scene.camera"
+      [detailOpacity]="scene.detail"
+      [thumbnailOpacity]="scene.thumbnail"
+      [style.left.px]="scene.box.x"
+      [style.top.px]="scene.box.y"
+      [style.width.px]="scene.box.width"
+      [style.height.px]="scene.box.height"
+      [style.opacity]="scene.opacity"
+    />
   </div>
 }
 <app-cursor />
