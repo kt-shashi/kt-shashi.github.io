@@ -2,12 +2,6 @@
   font-size: clamp(2.7rem, 6vw, 5.5rem);
   margin: 20px 0 40px;
 }
-.contact-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: start;
-  gap: 2rem;
-}
 .contact-bottom p {
   font-size: 0.85rem;
 }
@@ -28,9 +22,6 @@
   margin-top: 1rem;
 }
 @media (max-width: 700px) {
-  .contact-bottom {
-    flex-direction: column;
-  }
   .copy {
     display: block;
     margin: 10px 0 0;

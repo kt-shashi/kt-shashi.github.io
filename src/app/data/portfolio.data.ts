@@ -16,7 +16,6 @@ export const identity = {
   intro:
     'I build Angular interfaces and Spring Boot APIs, with experience across enterprise applications and Android development.',
   email: 'shkt03@gmail.com',
-  resume: 'https://drive.google.com/file/d/1gz7rl4VClDcXqsMiAT00YxTuBKIVeGXk/view?usp=sharing',
 };
 interface Qualification {
   city: 'Kolkata' | 'Jamshedpur';
