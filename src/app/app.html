@@ -1,10 +1,28 @@
 <button class="skip" (click)="focusContent()">Skip to content</button>
 <app-navigation />
-<main #panel id="main" tabindex="-1" [class.map-in-flight]="mapTransition.scene()?.hideAnchor">
+@let scene = mapTransition.scene();
+@let region = backgroundRegion();
+@let opacity = backgroundOpacity();
+@if (opacity !== undefined && !scene) {
+  <div class="map-background" aria-hidden="true" [style.opacity]="opacity">
+    <app-section-map [region]="region" />
+  </div>
+}
+<main
+  #panel
+  id="main"
+  tabindex="-1"
+  [class.has-state-map]="region"
+  [style.opacity]="scene?.contentOpacity"
+>
   <div class="page"><router-outlet /></div>
 </main>
-@if (mapTransition.scene(); as scene) {
-  <div class="map-transition" aria-hidden="true">
+@if (scene) {
+  <div
+    class="map-transition"
+    aria-hidden="true"
+    [class.behind-content]="scene.contentOpacity !== undefined"
+  >
     <div class="map-backdrop" [style.opacity]="scene.backdrop"></div>
     <app-section-map
       [region]="scene.region"
@@ -19,4 +37,25 @@
     />
   </div>
 }
+<div class="animation-settings">
+  <button
+    type="button"
+    role="switch"
+    aria-label="Map animations"
+    [attr.aria-checked]="mapTransition.animationsEnabled()"
+    [disabled]="mapTransition.reducedMotion()"
+    (click)="mapTransition.toggleAnimations()"
+  >
+    <span>Map animations</span>
+    <span class="animation-state">
+      {{
+        mapTransition.reducedMotion()
+          ? 'Off (system)'
+          : mapTransition.animationsEnabled()
+            ? 'On'
+            : 'Off'
+      }}
+    </span>
+  </button>
+</div>
 <app-cursor />

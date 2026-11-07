@@ -39,5 +39,11 @@
   </svg>
 }
 @if (thumbnailImage(); as image) {
-  <img [src]="image" [style.opacity]="thumbnail()" alt="" aria-hidden="true" />
+  <img
+    [src]="image"
+    [style.opacity]="thumbnail()"
+    [style.transform]="thumbnailTransform()"
+    alt=""
+    aria-hidden="true"
+  />
 }

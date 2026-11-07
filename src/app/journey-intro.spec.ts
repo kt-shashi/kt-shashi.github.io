@@ -18,6 +18,7 @@ describe('Journey landing animation', () => {
 
   afterEach(() => {
     sessionStorage.removeItem('portfolio-journey-intro');
+    localStorage.removeItem('portfolio-map-animations');
     vi.unstubAllGlobals();
   });
 
@@ -36,10 +37,10 @@ describe('Journey landing animation', () => {
     expect(component.revealedCities()).toBe(1);
     expect(component.introContentVisible()).toBe(false);
     nextFrame(0);
-    nextFrame(1350);
+    nextFrame(2050);
     expect(component.camera()).toEqual(component.frame);
     const revealed = [component.revealedCities()];
-    for (const time of [1500, 1700, 1900, 2100]) {
+    for (const time of [2300, 2750, 3150, 3450]) {
       nextFrame(time);
       revealed.push(component.revealedCities());
     }
@@ -47,7 +48,7 @@ describe('Journey landing animation', () => {
     expect(component.revealedCities()).toBe(5);
     expect(component.introRouteProgress()).toBe(1);
     expect(component.introContentVisible()).toBe(true);
-    nextFrame(2400);
+    nextFrame(3800);
     fixture.detectChanges();
     expect(component.introPlaying()).toBe(false);
     expect(fixture.nativeElement.querySelectorAll('button.map-label:not([hidden])')).toHaveLength(
@@ -72,6 +73,13 @@ describe('Journey landing animation', () => {
     expect(fixture.componentInstance.revealedCities()).toBe(5);
     expect(fixture.componentInstance.introContentVisible()).toBe(true);
     fixture.destroy();
+  });
+
+  it('honors a saved choice to skip map animations when opening Journey', async () => {
+    localStorage.setItem('portfolio-map-animations', 'off');
+    const fixture = await openJourney();
+    expect(fixture.componentInstance.introPlaying()).toBe(false);
+    expect(fixture.componentInstance.camera()).toEqual(fixture.componentInstance.frame);
   });
 
   it('finishes immediately when Escape is pressed', async () => {

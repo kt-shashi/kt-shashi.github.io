@@ -29,7 +29,7 @@ interface Qualification {
 export const education: Qualification[] = [
   {
     city: 'Kolkata',
-    institution: 'St. Joseph’s College',
+    institution: 'St. Joseph’s College, Kolkata',
     qualification: 'Class 10',
     dates: '2016',
     result: '89%',
@@ -44,14 +44,14 @@ export const education: Qualification[] = [
   {
     city: 'Kolkata',
     institution: 'George College, Kolkata',
-    qualification: 'BCA',
+    qualification: 'Bachelor of Computer Applications',
     dates: '2018–2021',
     result: '92%',
   },
   {
     city: 'Jamshedpur',
     institution: 'National Institute of Technology, Jamshedpur',
-    qualification: 'MCA',
+    qualification: 'Master of Computer Applications',
     dates: '2021–2024',
     result: 'CGPA: 8.31',
   },

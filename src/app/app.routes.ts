@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { mapTransitionGuard } from './map-transition.guard';
+import { EducationPage } from './pages/education/education';
 
 export const sections = [
   {
@@ -25,7 +26,7 @@ export const sections = [
   {
     path: 'education',
     label: 'Education',
-    loadComponent: () => import('./pages/education/education').then((m) => m.EducationPage),
+    component: EducationPage,
   },
   {
     path: 'about',
@@ -41,9 +42,9 @@ export const sections = [
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'journey' },
-  ...sections.map(({ path, label, loadComponent }) => ({
+  ...sections.map(({ path, label, ...page }) => ({
     path,
-    loadComponent,
+    ...page,
     title: label + ' · Shashi Kant — Full-Stack Developer',
     canActivate: [mapTransitionGuard(path)],
   })),

@@ -1,10 +1,12 @@
 import {
   afterNextRender,
   Component,
+  computed,
   DestroyRef,
   ElementRef,
   inject,
   Injector,
+  signal,
   viewChild,
 } from '@angular/core';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
@@ -12,8 +14,8 @@ import { filter } from 'rxjs';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Navigation } from './navigation/navigation';
 import { Cursor } from './cursor/cursor';
-import { MapSection } from './data/map-views';
-import { MapTransition } from './map-transition';
+import { MapSection, sectionRegions } from './data/map-views';
+import { mapBackgroundOpacity, MapTransition } from './map-transition';
 import { SectionMap } from './section-map';
 
 @Component({
@@ -22,6 +24,7 @@ import { SectionMap } from './section-map';
     '(document:contextmenu)': '$event.preventDefault()',
     '(document:copy)': '$event.preventDefault()',
     '(window:resize)': 'mapTransition.finish()',
+    '(window:keydown.escape)': 'mapTransition.finish()',
   },
   imports: [Navigation, RouterOutlet, Cursor, SectionMap],
   templateUrl: './app.html',
@@ -29,6 +32,15 @@ import { SectionMap } from './section-map';
 })
 export class App {
   readonly mapTransition = inject(MapTransition);
+  private readonly activeSection = signal<MapSection | undefined>(undefined);
+  readonly backgroundRegion = computed(() => {
+    const section = this.activeSection();
+    return section ? sectionRegions[section] : null;
+  });
+  readonly backgroundOpacity = computed(() => {
+    const section = this.activeSection();
+    return section ? mapBackgroundOpacity(section) : undefined;
+  });
   private readonly panel = viewChild.required<ElementRef<HTMLElement>>('panel');
   private readonly router = inject(Router);
   private readonly injector = inject(Injector);
@@ -49,6 +61,7 @@ export class App {
         const fragment = this.router.parseUrl(event.urlAfterRedirects).fragment;
         const section = this.router.routerState.snapshot.root.firstChild?.routeConfig?.path as
           MapSection | undefined;
+        this.activeSection.set(section);
         const moveFocus = !initial || !!fragment;
         initial = false;
         afterNextRender(

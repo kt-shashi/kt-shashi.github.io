@@ -30,6 +30,7 @@ function frameAt(x: number, y: number, width: number): MapBox {
 function region(
   name: keyof typeof statePaths,
   stateFrame: MapBox,
+  artworkFrame: MapBox,
   cityWidth: number,
   ...cities: string[]
 ) {
@@ -41,13 +42,40 @@ function region(
     });
   const x = pins.reduce((sum, pin) => sum + pin.x, 0) / pins.length;
   const y = pins.reduce((sum, pin) => sum + pin.y, 0) / pins.length;
-  return { name, outline: statePaths[name], stateFrame, cityFrame: frameAt(x, y, cityWidth), pins };
+  return {
+    name,
+    outline: statePaths[name],
+    stateFrame,
+    artworkFrame,
+    cityFrame: frameAt(x, y, cityWidth),
+    pins,
+  };
 }
 
+// Artwork frames register the district SVGs to the same projection as the animated map.
 export const mapRegions = {
-  maharashtra: region('Maharashtra', frameAt(431, 566, 375), 200, 'mumbai', 'pune'),
-  jharkhand: region('Jharkhand', frameAt(717, 399, 218), 106, 'jamshedpur'),
-  'west-bengal': region('West Bengal', frameAt(789, 373, 342), 126, 'kolkata'),
+  maharashtra: region(
+    'Maharashtra',
+    frameAt(431, 566, 375),
+    frameAt(427.382, 566.414, 433.162),
+    200,
+    'mumbai',
+    'pune',
+  ),
+  jharkhand: region(
+    'Jharkhand',
+    frameAt(717, 399, 218),
+    frameAt(717.723, 398.958, 249.054),
+    106,
+    'jamshedpur',
+  ),
+  'west-bengal': region(
+    'West Bengal',
+    frameAt(789, 373, 342),
+    frameAt(788.789, 373.713, 336.96),
+    126,
+    'kolkata',
+  ),
 };
 
 export const sectionRegions = {

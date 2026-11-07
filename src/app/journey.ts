@@ -1,6 +1,7 @@
 import {
   Component,
   computed,
+  effect,
   signal,
   HostListener,
   ElementRef,
@@ -23,6 +24,8 @@ import { MapTransition } from './map-transition';
   styleUrls: ['./journey.scss', './journey-intro.scss'],
 })
 export class Journey {
+  private readonly transitions = inject(MapTransition);
+  readonly animationsEnabled = this.transitions.animationsEnabled;
   readonly identity = identity;
   readonly frame = indiaFrame;
   readonly camera = signal(this.frame);
@@ -45,13 +48,21 @@ export class Journey {
   private focusOnOpen = false;
   private readonly main = inject(ElementRef<HTMLElement>).nativeElement.closest('main');
   private introFrame = 0;
-  private removeIntroMotionListener?: () => void;
 
   constructor() {
     const destroyRef = inject(DestroyRef);
-    const transitions = inject(MapTransition);
+    const transitions = this.transitions;
     afterNextRender(() => {
-      if (transitions.claimJourneyIntro() && !transitions.scene()) this.startIntro();
+      if (
+        transitions.claimJourneyIntro() &&
+        transitions.animationsEnabled() &&
+        !transitions.scene()
+      ) {
+        this.startIntro();
+      }
+    });
+    effect(() => {
+      if (!transitions.animationsEnabled() && this.introPlaying()) this.finishIntro();
     });
     const reposition = () => this.positionPopup();
     this.main?.addEventListener('scroll', reposition, { passive: true });
@@ -75,8 +86,6 @@ export class Journey {
   }
 
   private startIntro() {
-    const motion = window.matchMedia?.('(prefers-reduced-motion: reduce)');
-    if (motion?.matches !== false) return;
     const [x, y] = this.places[0].point;
     const start = { x: x - 100, y: y - 67, width: 200, height: 134 };
     this.camera.set(start);
@@ -92,17 +101,19 @@ export class Journey {
       distances.push(distances[i - 1] + Math.hypot(current[0] - previous[0], current[1] - previous[1]));
     }
     const stops = distances.map((distance) => distance / distances[distances.length - 1]);
-    const onMotionChange = () => {
-      if (motion.matches) this.finishIntro();
-    };
-    motion.addEventListener?.('change', onMotionChange);
-    this.removeIntroMotionListener = () => motion.removeEventListener?.('change', onMotionChange);
+
+    const zoomDelay = 500;
+    const zoomDuration = 1550;
+    const routeStart = zoomDelay + zoomDuration - 150;
+    const routeDuration = 1550;
+    const revealAt = routeStart + routeDuration;
+    const finishAt = revealAt + 350;
 
     let started: number | undefined;
     const animate = (time: number) => {
       started ??= time;
       const elapsed = time - started;
-      const progress = Math.min(Math.max((elapsed - 350) / 1000, 0), 1);
+      const progress = Math.min(Math.max((elapsed - zoomDelay) / zoomDuration, 0), 1);
       const eased = progress * progress * (3 - 2 * progress);
       this.camera.set({
         x: start.x + (this.frame.x - start.x) * eased,
@@ -110,11 +121,11 @@ export class Journey {
         width: start.width + (this.frame.width - start.width) * eased,
         height: start.height + (this.frame.height - start.height) * eased,
       });
-      const routeProgress = Math.min(Math.max((elapsed - 1250) / 850, 0), 1);
+      const routeProgress = Math.min(Math.max((elapsed - routeStart) / routeDuration, 0), 1);
       this.introRouteProgress.set(routeProgress);
       this.revealedCities.set(stops.filter((stop) => stop <= routeProgress).length);
-      this.introContentVisible.set(elapsed >= 2050);
-      if (elapsed >= 2400) {
+      this.introContentVisible.set(elapsed >= revealAt);
+      if (elapsed >= finishAt) {
         this.finishIntro();
       } else {
         this.introFrame = requestAnimationFrame(animate);
@@ -125,8 +136,6 @@ export class Journey {
 
   private finishIntro() {
     cancelAnimationFrame(this.introFrame);
-    this.removeIntroMotionListener?.();
-    this.removeIntroMotionListener = undefined;
     this.introPlaying.set(false);
     this.introContentVisible.set(true);
     this.revealedCities.set(this.places.length);

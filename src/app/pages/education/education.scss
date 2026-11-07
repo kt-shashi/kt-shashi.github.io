@@ -1,32 +1,121 @@
-ol {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, 17rem), 1fr));
-  gap: 0.85rem;
-  max-width: 48rem;
+.section-heading {
+  margin-bottom: clamp(1rem, 3vw, 1.75rem);
+}
+
+.timeline {
+  max-width: 55rem;
+  margin: 0;
+  padding-inline: clamp(0.7rem, 2vw, 1.4rem);
   list-style: none;
-  margin: 0;
-  padding: 0;
+  border: 1px solid var(--line);
+  border-radius: 0.85rem;
+  background: rgb(16 28 48 / 90%);
 }
+
 li {
+  position: relative;
   display: grid;
-  align-content: start;
-  justify-items: start;
-  gap: 0.65rem;
-  padding: clamp(1rem, 2vw, 1.4rem);
+  grid-template:
+    'rail period school result'
+    / 1rem 7rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.8rem;
+  padding-block: clamp(1.2rem, 2.8vh, 1.65rem);
 }
-h2 {
-  font-size: 1.4rem;
-  margin: 0;
+
+li + li {
+  border-top: 1px solid var(--line);
 }
-p {
-  margin: 0.2rem 0 0;
+
+li::before {
+  content: '';
+  position: absolute;
+  inset-block: 0;
+  inset-inline-start: 0.5rem;
+  width: 1px;
+  background: var(--line);
 }
+
+li:first-child::before {
+  inset-block-start: 50%;
+}
+
+li:last-child::before {
+  inset-block-end: 50%;
+}
+
+li::after {
+  content: '';
+  grid-area: rail;
+  position: relative;
+  justify-self: center;
+  width: 0.5rem;
+  aspect-ratio: 1;
+  border: 1px solid var(--coral);
+  border-radius: 50%;
+  background: var(--coral);
+}
+
+.period {
+  grid-area: period;
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
 .dates {
   color: var(--coral);
   font-size: 0.8rem;
+  font-weight: 700;
   font-variant-numeric: tabular-nums;
 }
+
+.city {
+  color: var(--muted);
+  font-size: 0.65rem;
+}
+
+.school {
+  grid-area: school;
+}
+
+h2 {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 650;
+}
+
+p {
+  margin: 0.2rem 0 0;
+  font-size: 0.8rem;
+  line-height: 1.45;
+}
+
 .result {
-  font-size: 0.85rem;
-  font-weight: 600;
+  grid-area: result;
+  justify-self: end;
+  padding: 0.15rem 0.55rem;
+  border: 1px solid var(--line);
+  border-radius: 0.4rem;
+  background: var(--surface);
+  font-size: 0.75rem;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+@media (max-width: 620px) {
+  li {
+    grid-template:
+      'rail period result'
+      'rail school school'
+      / 1rem minmax(0, 1fr) auto;
+    gap: 0.35rem 0.6rem;
+  }
+
+  .period {
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 0.45rem;
+  }
 }
