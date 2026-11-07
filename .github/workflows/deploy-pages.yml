@@ -24,7 +24,7 @@ jobs:
       - run: npm ci
 
       - name: Build Angular for the GitHub Pages URL
-        run: npm run build -- --base-href /portfolio-map/
+        run: npm run build
 
       - name: Fix font URLs for the repository subpath
         run: |
