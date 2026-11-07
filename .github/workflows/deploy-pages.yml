@@ -1,0 +1,49 @@
+name: Deploy portfolio to GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+concurrency:
+  group: github-pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24.15.0'
+
+      - run: npm ci
+
+      - name: Build Angular for the GitHub Pages URL
+        run: npm run build -- --base-href /portfolio-map/
+
+      - name: Fix font URLs for the repository subpath
+        run: |
+          sed -i 's|url(/fonts/|url(./fonts/|g' dist/shashi-portfolio/browser/styles*.css
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: dist/shashi-portfolio/browser
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publish the site
+        id: deployment
+        uses: actions/deploy-pages@v4
