@@ -1,14 +1,15 @@
 :host {
   display: grid;
   height: 100dvh;
-  grid-template-areas: 'main nav';
-  grid-template-rows: minmax(0, 1fr);
+  grid-template-areas: 'main nav' 'main motion';
+  grid-template-rows: minmax(0, 1fr) auto;
   grid-template-columns: minmax(0, 5.4fr) minmax(9rem, 1fr);
 }
 main {
   display: flex;
   flex-direction: column;
   grid-area: main;
+  z-index: 1;
   min-height: 0;
   overflow: auto;
   scrollbar-width: none;
@@ -33,6 +34,23 @@ main {
 .map-transition app-section-map {
   position: absolute;
 }
+.map-background {
+  position: relative;
+  grid-area: main;
+  container-type: size;
+  pointer-events: none;
+  overflow: hidden;
+}
+.map-background app-section-map {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: min(96cqw, calc(96cqh * 1000 / 670));
+  transform: translate(-50%, -50%);
+}
+.map-transition.behind-content {
+  z-index: 0;
+}
 main:focus {
   outline: none;
 }
@@ -48,10 +66,46 @@ main:focus {
 .skip:focus {
   top: 0.5rem;
 }
+.animation-settings {
+  grid-area: motion;
+  display: flex;
+  justify-content: flex-end;
+  padding-inline: 0 var(--gutter);
+}
+.animation-settings button {
+  display: inline-flex;
+  min-height: 44px;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+  font-size: 0.65rem;
+}
+.animation-settings button:enabled:hover {
+  color: var(--cream);
+}
+.animation-settings button:disabled {
+  cursor: default;
+}
+.animation-state {
+  padding: 0.1rem 0.45rem;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  color: var(--cream);
+}
+button[aria-checked='true'] .animation-state {
+  border-color: var(--coral);
+  color: var(--coral);
+}
 @media (max-width: 1000px) {
   :host {
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: auto minmax(0, 1fr);
-    grid-template-areas: 'nav' 'main';
+    grid-template-rows: auto minmax(0, 1fr) auto;
+    grid-template-areas: 'nav' 'main' 'motion';
+  }
+  .animation-settings {
+    border-top: 1px solid var(--line);
   }
 }

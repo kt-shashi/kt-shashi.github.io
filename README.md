@@ -1,6 +1,6 @@
 # Shashi Kant — portfolio
 
-An Angular 22 portfolio with a geographic journey through India, work experience, personal projects, grouped skills, expandable hobbies, and email contact. Built with standalone components, TypeScript, SCSS, and a locally hosted Manrope font. No backend, map API key, analytics, or external font requests.
+An Angular 22 portfolio with a geographic journey through India, work experience, personal projects, grouped skills, expandable hobbies, and email contact. Built with standalone components, TypeScript, SCSS, and self-hosted Montserrat and Arimo fonts. No backend, map API key, analytics, or external font requests.
 
 ## Setup and development
 

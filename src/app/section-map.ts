@@ -37,6 +37,16 @@ export class SectionMap {
     const region = this.region();
     return region ? `images/${region}-districts.svg` : null;
   });
+  readonly thumbnailTransform = computed(() => {
+    const camera = this.camera();
+    const artwork = this.detail()?.artworkFrame;
+    if (!camera || !artwork) return null;
+
+    const scale = artwork.width / camera.width;
+    const offsetX = artwork.x + artwork.width / 2 - (camera.x + camera.width / 2);
+    const offsetY = artwork.y + artwork.height / 2 - (camera.y + camera.height / 2);
+    return `translate(${(offsetX / camera.width) * 100}%, ${(offsetY / camera.height) * 100}%) scale(${scale})`;
+  });
   readonly thumbnail = computed(() => this.thumbnailOpacity() ?? (this.region() ? 1 : 0));
   readonly label = computed(() => {
     const detail = this.detail();

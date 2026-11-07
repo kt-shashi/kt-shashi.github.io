@@ -1,17 +1,16 @@
 <section id="skills" class="section-shell content-section" aria-labelledby="skills-title">
-  <div class="section-heading map-heading">
+  <div class="section-heading">
     <div>
       <span class="eyebrow">04 / TOOLKIT</span>
       <h1 id="skills-title">What I build with.</h1>
     </div>
-    <app-section-map region="jharkhand" data-map-anchor />
   </div>
   <div class="core-skills">
     <span>Java</span><span>Spring Boot</span><span>Angular</span><span>SQL</span>
   </div>
   <div class="skills-grid">
     @for (group of skills; track group.name) {
-      <div>
+      <div class="depth-card">
         <h3>{{ group.name }}</h3>
         <p>{{ group.items.join(' · ') }}</p>
       </div>

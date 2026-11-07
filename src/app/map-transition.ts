@@ -1,4 +1,4 @@
-import { inject, Injectable, signal } from '@angular/core';
+import { computed, DestroyRef, inject, Injectable, signal } from '@angular/core';
 import { NavigationCancel, NavigationError, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import {
@@ -19,16 +19,33 @@ interface MapScene {
   thumbnail: number;
   opacity: number;
   backdrop: number;
-  hideAnchor: boolean;
+  contentOpacity?: number;
 }
 
 type Step = [duration: number, scene: MapScene];
 
 const fadeTime = 360;
-const dockTime = 660;
-const thumbnailFadeTime = 150;
-const cityTime = 430;
-const stateTime = 520;
+const contentRevealTime = 560;
+const artworkSettleTime = 460;
+const cityTime = 510;
+const stateTime = 640;
+const travelTime = 480;
+const animationPreference = 'portfolio-map-animations';
+export const stateMapOpacity = 0.32;
+
+export function mapBackgroundOpacity(section: MapSection): number | undefined {
+  if (sectionRegions[section]) return stateMapOpacity;
+  if (section === 'about' || section === 'contact') return 0.2;
+  return undefined;
+}
+
+function storedAnimationsEnabled(): boolean {
+  try {
+    return localStorage.getItem(animationPreference) !== 'off';
+  } catch {
+    return true;
+  }
+}
 
 function interpolateBox(from: MapBox, to: MapBox, t: number): MapBox {
   return {
@@ -39,10 +56,37 @@ function interpolateBox(from: MapBox, to: MapBox, t: number): MapBox {
   };
 }
 
+function interpolateCamera(from: MapBox, to: MapBox, t: number): MapBox {
+  const linear = interpolateBox(from, to, t);
+  const scale = (to.width / from.width) ** t;
+  const width = from.width * scale;
+  const height = from.height * scale;
+  return {
+    x: linear.x + (linear.width - width) / 2,
+    y: linear.y + (linear.height - height) / 2,
+    width,
+    height,
+  };
+}
+
+function overviewCamera(region: MapRegion): MapBox {
+  const city = mapRegions[region].cityFrame;
+  const offsetX = city.x + city.width / 2 - (indiaFrame.x + indiaFrame.width / 2);
+  const offsetY = city.y + city.height / 2 - (indiaFrame.y + indiaFrame.height / 2);
+  return { ...indiaFrame, x: indiaFrame.x + offsetX * 0.2, y: indiaFrame.y + offsetY * 0.1 };
+}
+
 @Injectable({ providedIn: 'root' })
 export class MapTransition {
   private readonly currentScene = signal<MapScene | null>(null);
   readonly scene = this.currentScene.asReadonly();
+  private readonly motionQuery = window.matchMedia?.('(prefers-reduced-motion: reduce)');
+  private readonly systemMotionReduced = signal(this.motionQuery?.matches ?? true);
+  private readonly userAnimationsEnabled = signal(storedAnimationsEnabled());
+  readonly reducedMotion = this.systemMotionReduced.asReadonly();
+  readonly animationsEnabled = computed(
+    () => this.userAnimationsEnabled() && !this.reducedMotion(),
+  );
   private panel?: HTMLElement;
   private navigationId?: number;
   private frame = 0;
@@ -50,6 +94,15 @@ export class MapTransition {
   private introClaimed = false;
 
   constructor() {
+    const onMotionChange = (event: MediaQueryListEvent) => {
+      this.systemMotionReduced.set(event.matches);
+      if (event.matches) this.finish();
+    };
+    this.motionQuery?.addEventListener?.('change', onMotionChange);
+    inject(DestroyRef).onDestroy(() => {
+      this.motionQuery?.removeEventListener?.('change', onMotionChange);
+    });
+
     inject(Router)
       .events.pipe(takeUntilDestroyed())
       .subscribe((event) => {
@@ -60,6 +113,17 @@ export class MapTransition {
           this.finish(false);
         }
       });
+  }
+
+  toggleAnimations() {
+    const enabled = !this.userAnimationsEnabled();
+    this.userAnimationsEnabled.set(enabled);
+    try {
+      localStorage.setItem(animationPreference, enabled ? 'on' : 'off');
+    } catch {
+      // The preference still applies for the current visit.
+    }
+    if (!enabled) this.finish();
   }
 
   connect(panel: HTMLElement) {
@@ -84,7 +148,7 @@ export class MapTransition {
 
   play(id: number, source: MapSection, destination: MapSection): boolean | Promise<boolean> {
     this.finish();
-    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches !== false) return true;
+    if (!this.animationsEnabled()) return true;
     const panel = this.panel?.getBoundingClientRect();
     if (!panel?.width || !panel.height) return true;
 
@@ -99,28 +163,42 @@ export class MapTransition {
       thumbnail: 0,
       opacity: 1,
       backdrop: 1,
-      hideAnchor: false,
     };
 
     const sourceRegion = sectionRegions[source];
-    const anchor = this.anchor(panel);
+    const sourceOpacity = mapBackgroundOpacity(source);
+    const destinationRegion = sectionRegions[destination];
+    const travel = sourceRegion && destinationRegion && sourceRegion !== destinationRegion;
+    const anchor = source === 'journey' ? this.anchor(panel) : null;
     const steps: Step[] = [];
-    if (sourceRegion && anchor) {
-      const city = this.cityScene(country, sourceRegion);
-      this.currentScene.set({
-        ...city,
-        box: anchor.box,
-        opacity: anchor.visible ? 1 : 0,
-        backdrop: 0,
+    if (sourceRegion) {
+      const artwork = mapRegions[sourceRegion].artworkFrame;
+      const overview = travel ? { ...country, camera: overviewCamera(sourceRegion) } : country;
+      const background = {
+        ...country,
+        camera: artwork,
+        region: sourceRegion,
+        detail: 1,
         thumbnail: 1,
-      });
+        opacity: stateMapOpacity,
+        contentOpacity: 1,
+      };
+      this.currentScene.set(background);
       steps.push(
-        [dockTime - thumbnailFadeTime, { ...city, thumbnail: 1 }],
-        [thumbnailFadeTime, city],
-        [cityTime, this.stateScene(city, sourceRegion)],
-        [stateTime, country],
+        [240, { ...background, contentOpacity: 0 }],
+        [180, { ...background, opacity: 1, contentOpacity: 0 }],
+        [
+          cityTime,
+          {
+            ...country,
+            region: sourceRegion,
+            detail: 0.75,
+            camera: interpolateCamera(artwork, overview.camera, 0.42),
+          },
+        ],
+        [stateTime, overview],
       );
-    } else if (source === 'journey' && anchor) {
+    } else if (anchor) {
       this.currentScene.set({
         ...country,
         box: anchor.box,
@@ -129,16 +207,20 @@ export class MapTransition {
         backdrop: 0,
       });
       steps.push([fadeTime, country]);
+    } else if (sourceOpacity !== undefined) {
+      this.currentScene.set({ ...country, opacity: sourceOpacity, contentOpacity: 1 });
+      steps.push([fadeTime, { ...country, contentOpacity: 0 }]);
     } else {
       this.currentScene.set({ ...country, opacity: 0, backdrop: 0 });
       steps.push([fadeTime, country]);
     }
 
-    const destinationRegion = sectionRegions[destination];
     if (destinationRegion) {
       const city = this.cityScene(country, destinationRegion);
       steps.push(
-        [100, country],
+        travel
+          ? [travelTime, { ...country, camera: overviewCamera(destinationRegion) }]
+          : [100, country],
         [stateTime, this.stateScene(city, destinationRegion)],
         [cityTime, city],
       );
@@ -151,22 +233,25 @@ export class MapTransition {
     const panel = this.panel?.getBoundingClientRect();
     if (id !== this.navigationId || !scene || !panel) return;
 
-    const anchor = fragment ? null : this.anchor(panel);
+    const anchor = destination === 'journey' && !fragment ? this.anchor(panel) : null;
     const region = sectionRegions[destination];
-    const fade = { ...scene, opacity: 0, backdrop: 0, hideAnchor: false };
+    const opacity = mapBackgroundOpacity(destination);
+    const hidden = { ...scene, contentOpacity: 0 };
+    this.currentScene.set(hidden);
     const steps: Step[] = [];
-    if (anchor?.visible && region) {
-      const expandedThumbnail = { ...scene, thumbnail: 1 };
-      const docked = {
-        ...expandedThumbnail,
-        box: anchor.box,
-        backdrop: 0,
-      };
-      steps.push([thumbnailFadeTime, expandedThumbnail], [dockTime - thumbnailFadeTime, docked]);
-    } else if (anchor?.visible && destination === 'journey') {
-      steps.push([fadeTime, { ...fade, box: anchor.box }]);
+    if (opacity !== undefined) {
+      const background = region
+        ? { ...hidden, camera: mapRegions[region].artworkFrame, thumbnail: 1 }
+        : hidden;
+      if (region) steps.push([artworkSettleTime, background]);
+      steps.push([contentRevealTime, { ...background, opacity, contentOpacity: 1 }]);
     } else {
-      steps.push([fadeTime, fade]);
+      const positioned = anchor?.visible ? { ...hidden, box: anchor.box } : hidden;
+      if (anchor?.visible) steps.push([fadeTime, positioned]);
+      steps.push([
+        contentRevealTime,
+        { ...positioned, opacity: 0, backdrop: 0, contentOpacity: 1 },
+      ]);
     }
     await this.animate(steps);
     if (this.navigationId === id) this.finish();
@@ -207,7 +292,6 @@ export class MapTransition {
       region,
       camera: mapRegions[region].cityFrame,
       detail: 1,
-      hideAnchor: true,
     };
   }
 
@@ -242,13 +326,16 @@ export class MapTransition {
         const t = progress * progress * (3 - 2 * progress);
         this.currentScene.set({
           box: interpolateBox(from.box, to.box, t),
-          camera: interpolateBox(from.camera, to.camera, t),
+          camera: interpolateCamera(from.camera, to.camera, t),
           region: to.region ?? from.region,
           detail: from.detail + (to.detail - from.detail) * t,
           thumbnail: from.thumbnail + (to.thumbnail - from.thumbnail) * t,
           opacity: from.opacity + (to.opacity - from.opacity) * t,
           backdrop: from.backdrop + (to.backdrop - from.backdrop) * t,
-          hideAnchor: from.hideAnchor || to.hideAnchor,
+          contentOpacity:
+            to.contentOpacity === undefined
+              ? undefined
+              : (from.contentOpacity ?? 0) * (1 - t) + to.contentOpacity * t,
         });
         this.frame = requestAnimationFrame(advance);
       };

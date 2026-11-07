@@ -4,7 +4,11 @@
       <div class="greeting">
         <span class="eyebrow">{{ identity.role }}</span>
         <h1 id="intro-title" data-portrait-heading>
-          Hi, I’m <a routerLink="/journey">Shashi<span>.</span></a>
+          Hi, I’m
+          <a routerLink="/journey">
+            <span class="greeting-name" [class.blinking]="animationsEnabled() && introContentVisible()"
+              >{{ identity.name }}<span class="greeting-name-fill" aria-hidden="true">{{ identity.name }}</span></span>
+          </a>
           <img class="greeting-portrait" src="images/shashi-kant.jpeg" alt="" />
         </h1>
         <span class="location"><i aria-hidden="true"></i>Mumbai, India</span>

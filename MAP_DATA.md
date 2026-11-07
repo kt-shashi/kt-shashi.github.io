@@ -43,4 +43,4 @@ Commit both the retained source geometry and `src/app/data/map.generated.ts` whe
 
 ## Font
 
-Manrope Latin variable WOFF2 is self-hosted in `public/fonts`, sourced from `@fontsource-variable/manrope`. Its SIL Open Font License is retained alongside it as `LICENSE.txt`.
+Montserrat and Arimo Latin variable WOFF2 files come from Fontsource 5.3.0. The files and their SIL Open Font License notices are in `public/fonts`.

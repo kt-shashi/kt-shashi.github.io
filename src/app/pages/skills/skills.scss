@@ -12,9 +12,13 @@
 }
 .skills-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 35px;
   margin-top: 40px;
+}
+.skills-grid .depth-card {
+  padding: clamp(0.7rem, 2vw, 1.2rem);
+  overflow-wrap: anywhere;
 }
 .skills-grid h3 {
   font-size: 0.85rem;
@@ -26,7 +30,7 @@
 }
 @media (max-width: 700px) {
   .skills-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 25px;
   }
   .skills-grid > div:last-child {
