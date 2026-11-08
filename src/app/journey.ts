@@ -13,7 +13,7 @@ import {
 } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { identity, journey, Place } from './data/portfolio.data';
-import { indiaFrame, project } from './data/map-views';
+import { indiaFrame, mapCropStyle, project } from './data/map-views';
 import { MapGeography } from './map-geography';
 import { MapTransition } from './map-transition';
 
@@ -29,6 +29,7 @@ export class Journey {
   readonly identity = identity;
   readonly frame = indiaFrame;
   readonly camera = signal(this.frame);
+  readonly cropStyle = computed(() => mapCropStyle(this.camera(), 660));
   readonly places = journey.map((p) => ({ ...p, point: project(p.coordinates) }));
   readonly introPlaying = signal(false);
   readonly introContentVisible = signal(true);

@@ -1,5 +1,5 @@
 import { Component, computed, input } from '@angular/core';
-import { indiaFrame, MapBox, MapRegion, mapRegions } from './data/map-views';
+import { indiaFrame, MapBox, mapCropStyle, MapRegion, mapRegions } from './data/map-views';
 import { MapGeography } from './map-geography';
 
 function viewBox({ x, y, width, height }: MapBox): string {
@@ -9,7 +9,12 @@ function viewBox({ x, y, width, height }: MapBox): string {
 @Component({
   selector: 'app-section-map',
   imports: [MapGeography],
-  host: { role: 'img', '[attr.aria-label]': 'label()' },
+  host: {
+    role: 'img',
+    '[attr.aria-label]': 'label()',
+    '[class.map-crop-blend]': 'cropStyle() !== null',
+    '[style]': 'cropStyle()',
+  },
   templateUrl: './section-map.html',
   styleUrl: './section-map.scss',
 })
@@ -48,6 +53,13 @@ export class SectionMap {
     return `translate(${(offsetX / camera.width) * 100}%, ${(offsetY / camera.height) * 100}%) scale(${scale})`;
   });
   readonly thumbnail = computed(() => this.thumbnailOpacity() ?? (this.region() ? 1 : 0));
+  readonly cropStyle = computed(() => {
+    const frame = this.frame();
+    const artwork = this.detail()?.artworkFrame;
+    // The district SVGs already fade their own context when shown at full size.
+    if (this.thumbnail() === 1 && (!this.camera() || frame === artwork)) return null;
+    return mapCropStyle(frame);
+  });
   readonly label = computed(() => {
     const detail = this.detail();
     return detail

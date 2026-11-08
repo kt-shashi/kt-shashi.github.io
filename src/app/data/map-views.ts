@@ -1,4 +1,4 @@
-import { projection, statePaths } from './map.generated';
+import { indiaHorizontalBounds, projection, statePaths } from './map.generated';
 import { journey } from './portfolio.data';
 
 export interface MapBox {
@@ -10,6 +10,16 @@ export interface MapBox {
 
 export const indiaFrame: MapBox = { x: 110, y: 20, width: 1000, height: 670 };
 export const mapAspect = indiaFrame.height / indiaFrame.width;
+
+export function mapCropStyle(frame: MapBox, south = frame.y + frame.height) {
+  const [west, east] = indiaHorizontalBounds;
+  const bottom = frame.y + frame.height;
+  return {
+    '--map-crop-left': frame.x > west ? 'var(--map-feather)' : '0%',
+    '--map-crop-right': frame.x + frame.width < east ? 'var(--map-feather)' : '0%',
+    '--map-crop-bottom-inset': `${(Math.max(0, bottom - south) / frame.height) * 100}%`,
+  };
+}
 
 export type MapRegion = 'maharashtra' | 'jharkhand' | 'west-bengal';
 

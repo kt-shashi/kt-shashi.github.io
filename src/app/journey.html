@@ -21,60 +21,61 @@
       </div>
     </div>
     <div class="map-stage" data-map-anchor>
-      <svg
-        [attr.viewBox]="camera().x + ' ' + camera().y + ' ' + camera().width + ' ' + camera().height"
-        role="img"
-        aria-label="Map of northern and central India with dotted state and union territory boundaries. Explore Gorakhpur, Kolkata, Jamshedpur, Pune and Mumbai using the location buttons."
-      >
-        <defs>
-          @if (introPlaying()) {
-            <mask id="intro-route-reveal" maskUnits="userSpaceOnUse" x="0" y="0" width="1200" height="690">
-              <polyline [attr.points]="route" pathLength="1" fill="none" stroke="white" stroke-width="5"
-                stroke-dasharray="1" [attr.stroke-dashoffset]="1 - introRouteProgress()" />
-            </mask>
+      <div class="map-crop-blend" [style]="cropStyle()">
+        <svg
+          [attr.viewBox]="camera().x + ' ' + camera().y + ' ' + camera().width + ' ' + camera().height"
+          role="img"
+          aria-label="Map of northern and central India with dotted state and union territory boundaries. Explore Gorakhpur, Kolkata, Jamshedpur, Pune and Mumbai using the location buttons."
+        >
+          <defs>
+            @if (introPlaying()) {
+              <mask id="intro-route-reveal" maskUnits="userSpaceOnUse" x="0" y="0" width="1200" height="690">
+                <polyline [attr.points]="route" pathLength="1" fill="none" stroke="white" stroke-width="5"
+                  stroke-dasharray="1" [attr.stroke-dashoffset]="1 - introRouteProgress()" />
+              </mask>
+            }
+            <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+              <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#f5ebd8" stroke-opacity=".035" />
+            </pattern>
+          </defs>
+          <rect width="1200" height="690" fill="url(#grid)" />
+          <g app-map-geography />
+          <polyline
+            [attr.points]="route"
+            [attr.mask]="introPlaying() ? 'url(#intro-route-reveal)' : null"
+            fill="none"
+            stroke="#f47c6a"
+            stroke-opacity=".5"
+            stroke-width="1.5"
+            stroke-dasharray="5 7"
+          />
+          @for (p of places; track p.id) {
+            <g class="city-mark" [attr.visibility]="$index < revealedCities() ? null : 'hidden'" (click)="select(p, labels.children.item($index))">
+              <line
+                [attr.x1]="p.point[0]"
+                [attr.y1]="p.point[1]"
+                [attr.x2]="p.point[0] + p.offset[0] * labelScale()"
+                [attr.y2]="p.point[1] + p.offset[1] * labelScale()"
+                stroke="#a28d83"
+                stroke-width="1"
+              />
+              <circle
+                [attr.cx]="p.point[0]"
+                [attr.cy]="p.point[1]"
+                [attr.r]="(active()?.id === p.id ? 12 : 7) * labelScale()"
+                fill="#f47c6a"
+                stroke="#101c30"
+                stroke-width="3"
+                vector-effect="non-scaling-stroke"
+              />
+            </g>
           }
-          <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
-            <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#f5ebd8" stroke-opacity=".035" />
-          </pattern>
-          <clipPath id="land-clip"><rect width="1200" height="660" /></clipPath>
-        </defs>
-        <rect width="1200" height="690" fill="url(#grid)" />
-        <g app-map-geography clip-path="url(#land-clip)" />
-        <polyline
-          [attr.points]="route"
-          [attr.mask]="introPlaying() ? 'url(#intro-route-reveal)' : null"
-          fill="none"
-          stroke="#f47c6a"
-          stroke-opacity=".5"
-          stroke-width="1.5"
-          stroke-dasharray="5 7"
-        />
-        @for (p of places; track p.id) {
-          <g class="city-mark" [attr.visibility]="$index < revealedCities() ? null : 'hidden'" (click)="select(p, labels.children.item($index))">
-            <line
-              [attr.x1]="p.point[0]"
-              [attr.y1]="p.point[1]"
-              [attr.x2]="p.point[0] + p.offset[0] * labelScale()"
-              [attr.y2]="p.point[1] + p.offset[1] * labelScale()"
-              stroke="#a28d83"
-              stroke-width="1"
-            />
-            <circle
-              [attr.cx]="p.point[0]"
-              [attr.cy]="p.point[1]"
-              [attr.r]="(active()?.id === p.id ? 12 : 7) * labelScale()"
-              fill="#f47c6a"
-              stroke="#101c30"
-              stroke-width="3"
-              vector-effect="non-scaling-stroke"
-            />
-          </g>
-        }
-        <text x="1030" y="100" fill="#a7a99f" font-size="13" letter-spacing="3">N ↑</text>
-        <text x="525" y="470" fill="#a7a99f" opacity=".4" font-size="14" letter-spacing="8">
-          INDIA
-        </text>
-      </svg>
+          <text x="1030" y="100" fill="#a7a99f" font-size="13" letter-spacing="3">N ↑</text>
+          <text x="525" y="470" fill="#a7a99f" opacity=".4" font-size="14" letter-spacing="8">
+            INDIA
+          </text>
+        </svg>
+      </div>
       <div class="map-labels" #labels>
         @for (p of places; track p.id) {
           <button

@@ -257,7 +257,7 @@ export const about =
 export const hobbies = [
   {
     name: 'Badminton',
-    detail: 'Away from the screen, I enjoy playing badminton.',
+    detail: 'Away from the screen,\nI’m always up for badminton.',
     image: 'images/badminton.jpeg',
   },
   {
@@ -267,7 +267,7 @@ export const hobbies = [
   },
   {
     name: 'Playing video games',
-    detail: 'In-game, I go by DEVTA.',
+    detail: 'I like games that let me get lost.\nFar Cry, Watch Dogs, and GTA.',
     image: 'images/gaming.jpeg',
     expandable: true,
   },
