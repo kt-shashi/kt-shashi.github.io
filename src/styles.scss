@@ -98,6 +98,27 @@ p {
 .section-shell {
   padding-inline: var(--gutter);
 }
+.map-crop-blend {
+  --map-feather: clamp(1.25rem, 13%, 5.5rem);
+  --map-crop-bottom: calc(var(--map-crop-bottom-inset) + var(--map-feather));
+  position: relative;
+  mask-image:
+    linear-gradient(to right, transparent, black var(--map-crop-left), black calc(100% - var(--map-crop-right)), transparent),
+    linear-gradient(to top, transparent var(--map-crop-bottom-inset), black var(--map-crop-bottom), black calc(100% - var(--map-feather)), transparent);
+  mask-composite: intersect;
+}
+.map-crop-blend::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  backdrop-filter: blur(12px);
+  mask-image:
+    linear-gradient(to right, black, transparent var(--map-crop-left)),
+    linear-gradient(to left, black, transparent var(--map-crop-right)),
+    linear-gradient(to bottom, black, transparent var(--map-feather)),
+    linear-gradient(to top, black var(--map-crop-bottom-inset), transparent var(--map-crop-bottom));
+}
 .depth-card {
   border: 1px solid rgb(245 235 216 / 12%);
   border-radius: 14px;

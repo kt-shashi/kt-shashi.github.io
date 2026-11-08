@@ -27,7 +27,7 @@ https://github.com/nvkelso/natural-earth-vector/blob/master/geojson/ne_10m_popul
 
 ## Projection and crop
 
-`tools/generate-map.mjs` uses d3-geo's Mercator projection, centered at [82, 27], scale 1850, translation [600, 280], precision 0.2. The SVG viewBox is 1200 × 690; the geographic layer is clipped at y = 660. The map intentionally crops its northern and southern extremities. All five required city points remain inside the visible area. The dotted connection is a narrative sequence, not a travel route.
+`tools/generate-map.mjs` uses d3-geo's Mercator projection, centered at [82, 27], scale 1850, translation [600, 280], precision 0.2. The Journey overview uses a 1000 × 670 viewBox and feathers the artwork where the viewport cuts the north and where the geography ends at y = 660. During zooms, the feather follows the camera crop. All five required city points remain inside the visible area. The dotted connection follows the sequence of cities in the portfolio.
 
 The Angular component applies the same Mercator mapping to the typed longitude/latitude coordinates. Label offsets are independent from projected points and are connected with leader lines. The generated file exports projection constants so rendering and point placement stay aligned.
 
